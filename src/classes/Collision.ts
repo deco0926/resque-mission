@@ -13,130 +13,79 @@ export class Collision {
   x: number;
   y: number;
 
-  constructor(
-    forBody: PlacementSchema,
-    level: LevelSchema,
-    position: PositionType
-  ) {
+  constructor(forBody: PlacementSchema, level: LevelSchema, position: PositionType) {
     this.forBody = forBody;
     this.level = level;
-    this.placementsAtPosition = [];
+    this.placementsAtPosition = []; // ✅ 確保是 `PlacementSchema[]`
 
-    // check is there any custom position?
+    // 檢查是否有自定義座標
     this.x = position ? position.x : forBody.x;
     this.y = position ? position.y : forBody.y;
     this.scanPlacementsAtPosition();
   }
 
   scanPlacementsAtPosition() {
-    // check 撞到哪個 placements 並加入到 placementsAtPosition
-    this.placementsAtPosition = this.level.placements.filter((p) => {
-      const isSelf = p.id === this.forBody.id;
-      return !isSelf && p.x === this.x && p.y === this.y;
+    // ✅ 強制讓 TypeScript 確保 `p` 是 `PlacementSchema`
+    this.placementsAtPosition = this.level.placements.filter((p): p is PlacementSchema => {
+      return p.id !== this.forBody.id && p.x === this.x && p.y === this.y;
     });
 
-    if (this.placementsAtPosition.length != 0) {
-      console.log(
-        this.forBody.type,
-        "下一步會遇到了 -> ",
-        this.placementsAtPosition
-      );
+    if (this.placementsAtPosition.length !== 0) {
+      console.log(this.forBody.type, "下一步會遇到 -> ", this.placementsAtPosition);
     }
   }
 
   withSolidPlacement() {
-    return this.placementsAtPosition.find((p) =>
-      p.isSolidForBody(this.forBody)
-    );
+    return this.placementsAtPosition.find((p) => (p as PlacementSchema).isSolidForBody?.(this.forBody));
   }
 
   withCompletesLevel() {
-    // 尋找 傳送門 placement 並呼叫 completesLevelOnCollide
-    if (this.forBody.canCompleteLevel) {
-      return this.placementsAtPosition.find((p) => {
-        return p.completesLevelOnCollide();
-      });
-    }
-    return null;
+    return this.forBody.canCompleteLevel
+      ? this.placementsAtPosition.find((p) => (p as PlacementSchema).completesLevelOnCollide?.())
+      : null;
   }
 
   withLock() {
-    // 當遇到是 lock placement 且有正確的 key，回傳 true
-    return this.placementsAtPosition.find((p) => {
-      return p.canBeUnlocked();
-    });
+    return this.placementsAtPosition.find((p) => (p as PlacementSchema).canBeUnlocked?.());
   }
-  withNpc(){
-    return this.placementsAtPosition.find((p) => {
-      return p.canbeTalked();
-    })
+
+  withNpc() {
+    return this.placementsAtPosition.find((p) => (p as PlacementSchema).canbeTalked?.());
   }
+
   withSelfGetsDamaged() {
-    return this.placementsAtPosition.find((p) => {
-      return p.damagesBodyOnCollide(this.forBody);
-    });
+    return this.placementsAtPosition.find((p) => (p as PlacementSchema).damagesBodyOnCollide?.(this.forBody));
   }
 
   withPlacementAddsToInventory() {
-    // 撿到 placements 加入到 inventory
-    if (this.forBody.canCollectItems) {
-      return this.placementsAtPosition.find((p) => {
-        return (
-          !p.hasBeenCollected && p.addsItemToInventoryOnCollide(this.forBody)
-        );
-      });
-    }
-    return null;
+    return this.forBody.canCollectItems
+      ? this.placementsAtPosition.find((p) => !p.hasBeenCollected && (p as PlacementSchema).addsItemToInventoryOnCollide?.(this.forBody))
+      : null;
   }
 
   withChangesHeroSkin() {
-    // 遇到水變更 skin
-    return this.placementsAtPosition.find((p) => {
-      return p.changesHeroSkinOnCollide();
-    });
+    return this.placementsAtPosition.find((p) => (p as PlacementSchema).changesHeroSkinOnCollide?.());
   }
 
   withPlacementMovesBody() {
-    if (this.forBody.interactsWithGround) {
-      return this.placementsAtPosition.find((p) => {
-        return p.autoMovesBodyOnCollide(this.forBody);
-      });
-    }
-    return null;
+    return this.forBody.interactsWithGround
+      ? this.placementsAtPosition.find((p) => (p as PlacementSchema).autoMovesBodyOnCollide?.(this.forBody))
+      : null;
   }
 
   withIceCorner() {
-    // 檢查角色是否在有 corner 的冰上，並回傳該 ice corner tile
-    return this.placementsAtPosition.find((p) => {
-      return p.type === PLACEMENT_TYPE_ICE && p.corner;
-    });
+    return this.placementsAtPosition.find((p) => (p as PlacementSchema).type === PLACEMENT_TYPE_ICE && (p as PlacementSchema).corner);
   }
 
   withDoorSwitch() {
-    // 紫色變換門
-    return this.placementsAtPosition.find((p) => {
-      return p.switchesDoorsOnCollide(this.forBody);
-    });
+    return this.placementsAtPosition.find((p) => (p as PlacementSchema).switchesDoorsOnCollide?.(this.forBody));
   }
 
   withTeleport() {
-    // 傳送門
-    return this.placementsAtPosition.find((p) => {
-      const teleportPos = p.teleportsToPositionOnCollide(this.forBody);
-      return Boolean(teleportPos);
-    });
+    return this.placementsAtPosition.find((p) => Boolean((p as PlacementSchema).teleportsToPositionOnCollide?.(this.forBody)));
   }
 
   withStealsInventory() {
-    // Thief placement 重製 inventory
-    return this.placementsAtPosition.find((p) => {
-      return p.stealsInventoryOnCollide(this.forBody);
-    });
+    return this.placementsAtPosition.find((p) => (p as PlacementSchema).stealsInventoryOnCollide?.(this.forBody));
   }
-
-  // withNpcConversation() {
-  //   return this.placementsAtPosition.find((p) => {
-  //     return p.rabbitNpcOnCollide(this.forBody);
-  //   });
-  // }
 }

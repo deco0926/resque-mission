@@ -64,19 +64,22 @@ export default function Home() {
 
       let index = 0;
       let currentText = "";
-      let interval = setInterval(() => {
+      let interval: NodeJS.Timeout | null = setInterval(() => { // ✅ 讓 interval 可以是 null
         currentText += fullText[index];
         setDisplayedText(currentText);
         index++;
+      
         if (index >= fullText.length) {
-          clearInterval(interval);
-          interval = null;
+          if (interval !== null) { // ✅ 確保 interval 存在
+            clearInterval(interval);
+            interval = null; // ✅ TypeScript 允許
+          }
         }
       }, 100);
-
-      const handleEnterKeyPress = (e) => {
+      
+      const handleEnterKeyPress = (e: KeyboardEvent) => { // ✅ 明確指定事件型別
         if (e.code === "Enter") {
-          if (interval) {
+          if (interval !== null) { // ✅ 確保 interval 存在
             clearInterval(interval);
             setDisplayedText(fullText);
             interval = null;
@@ -88,6 +91,7 @@ export default function Home() {
           }
         }
       };
+      
 
       document.addEventListener("keydown", handleEnterKeyPress);
     };

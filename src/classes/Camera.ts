@@ -10,6 +10,10 @@ const CAMERA_LOOKAHEAD = 3;
 const USE_SMOOTH_CAMERA = true;
 
 export class Camera {
+  level: any; // ✅ 讓 TypeScript 知道 `level` 存在
+  cameraX: any;
+  cameraY: any;
+  transformOffset: any;
   constructor(level) {
     this.level = level;
     const [heroX, heroY] = this.level.heroRef.displayXY();

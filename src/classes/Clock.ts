@@ -3,6 +3,9 @@ const TIME_PER_TICK = 16.6;
 const WARNING_SOUND_SECONDS = 10;
 
 export class Clock {
+  secondsRemaining: any;
+  level: any;
+  msRemainingInSecond: any;
   constructor(secondsRemaining, level) {
     this.secondsRemaining = secondsRemaining;
     this.level = level;
