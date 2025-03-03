@@ -1,4 +1,5 @@
 export class Inventory {
+  inventoryMap : any;
   constructor() {
     this.inventoryMap = new Map();
   }

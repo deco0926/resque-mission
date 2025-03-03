@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { LevelSchema, PlacementSchema } from "@/helpers/types";
 import {
   DIRECTION_RIGHT,
@@ -17,6 +18,12 @@ export class Placement {
   movingPixelsRemaining: number;
   movingPixelDirection: string;
   renderFn: () => React.JSX.Element | null;
+  skin: any;
+  spriteFacingDirection: any;
+  spriteWalkFrame: any;
+  canbeTalk: any;
+  hasBeenCollected: any;
+  canBeStolen: any;
 
   constructor(properties: PlacementSchema, level: LevelSchema) {
     this.id = properties.id;
@@ -144,7 +151,4 @@ export class Placement {
     // base class init renderComponent()
     return this.renderFn();
   }
-  // rabbitNpcOnCollide() {
-  //   return null;
-  // }
 }

@@ -34,7 +34,7 @@ export default function HomePage({ onGameStart }: { onGameStart: () => void }) {
     };
   }, [isKeyDown]);
 
-  // ✅ 1️⃣ 開始遊戲畫面（第 -1 頁）
+  // ✅ 1️⃣ **開始遊戲畫面（第 -1 頁）**
   if (page === -1) {
     return (
       <div
@@ -51,19 +51,30 @@ export default function HomePage({ onGameStart }: { onGameStart: () => void }) {
           textAlign: "center",
         }}
       >
-        <h1 style={{ fontSize: "48px", marginBottom: "20px" }}>拯救嫦娥大作戰</h1>
-        <p style={{ fontSize: "30px", marginBottom: "20px" }}>點擊按鈕開始遊戲</p>
+        <h1 style={{ fontSize: "80px", marginBottom: "20px" }}>拯救嫦娥大作戰</h1>
+
+        {/* ✅ 加入 `started.png` (圖片變大) */}
+        <Image 
+          src="/started.png" 
+          alt="開始遊戲畫面" 
+          width={750} 
+          height={276} 
+          style={{ marginBottom: "50px" }}
+        />
+
         <button
           onClick={() => setPage(0)}
           style={{
             fontFamily: "Cubic",
             padding: "10px 20px",
-            fontSize: "20px",
+            fontSize: "36px",
             cursor: "pointer",
-            backgroundColor: "#fff",
-            color: "#000",
+            letterSpacing: "4px",
+            fontWeight:'bold',
+            // backgroundColor: "#fff",
+            color: "white",
             border: "none",
-            borderRadius: "5px",
+            borderRadius: "10px",
             transition: "0.3s",
           }}
         >
@@ -89,7 +100,7 @@ export default function HomePage({ onGameStart }: { onGameStart: () => void }) {
     "/fourthfinal.png"
   ];
 
-  // ✅ 2️⃣ 劇情介紹頁面（第 0~3 頁）
+  // ✅ 2️⃣ **劇情介紹頁面（第 0~3 頁）**
   if (page < storyTexts.length) {
     return (
       <div
@@ -121,7 +132,7 @@ export default function HomePage({ onGameStart }: { onGameStart: () => void }) {
     );
   }
 
-  // ✅ 3️⃣ 月兔介紹頁面（第 4 頁）
+  // ✅ 3️⃣ **月兔介紹頁面（第 4 頁）**
   if (page === storyTexts.length) {
     return (
       <div
@@ -149,7 +160,7 @@ export default function HomePage({ onGameStart }: { onGameStart: () => void }) {
     );
   }
 
-  // ✅ 4️⃣ 月亮寶石介紹頁面（第 5 頁）
+  // ✅ 4️⃣ **月亮寶石介紹頁面（第 5 頁）**
   if (page === storyTexts.length + 1) {
     return (
       <div

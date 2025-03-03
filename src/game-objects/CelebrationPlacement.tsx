@@ -4,6 +4,7 @@ import Sprite from "../components/object-graphics/Sprite";
 import { TILES } from "../helpers/tiles";
 
 export class CelebrationPlacement extends Placement {
+  frame: any;
   constructor(properties, level) {
     super(properties, level);
     this.frame = 1;

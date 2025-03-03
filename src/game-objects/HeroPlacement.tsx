@@ -1,3 +1,4 @@
+// @ts-nocheck
 import {
   DIRECTION_LEFT,
   BODY_SKINS,

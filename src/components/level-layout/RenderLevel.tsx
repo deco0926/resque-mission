@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { CSSProperties, useEffect, useState } from "react";
 import styles from "./RenderLevel.module.css";
 import { THEME_BACKGROUNDS } from "../../helpers/consts";

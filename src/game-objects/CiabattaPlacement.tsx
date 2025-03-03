@@ -10,6 +10,15 @@ const ATTACKS = {
 const PAIN_FRAMES_LENGTH = 20;
 const DEATH_FRAMES_LENGTH = 140;
 export class CiabattaPlacement extends GroundEnemyPlacement {
+  tickBetweenMovesInterval: any;
+  ticksUntilNextMove: any;
+  turnsAroundAtWater: any;
+  interactsWithGround: any;
+  normalMovesRemaining: any;
+  hp: any;
+  painFramesRemaining: any;
+  currentAttack: any;
+  deathFramesUntilDisappear: any;
   constructor(properties, level) {
     super(properties, level);
     this.tickBetweenMovesInterval = 40; // 每一步之間經過的 frame 數
@@ -239,6 +248,6 @@ export class CiabattaPlacement extends GroundEnemyPlacement {
   }
 
   renderComponent() {
-    return <CiabattaBody frameCoord={this.getFrame()} />;
+    return <CiabattaBody frameCoord={this.getFrame()} yTranslate={0} />;
   }
 }

@@ -17,6 +17,7 @@ const directionFrameMap = {
 };
 
 export class ConveyorPlacement extends Placement {
+  direction: any;
   constructor(properties, level) {
     super(properties, level);
     this.direction = properties.direction;

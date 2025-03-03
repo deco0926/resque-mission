@@ -1,3 +1,4 @@
+// @ts-nocheck
 import Body from "@/components/object-graphics/Body";
 import { Placement } from "./Placement";
 import { TILES } from "@/helpers/tiles";

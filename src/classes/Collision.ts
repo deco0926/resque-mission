@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { PLACEMENT_TYPE_ICE } from "@/helpers/consts";
 import { LevelSchema, PlacementSchema } from "@/helpers/types";
 

@@ -4,6 +4,11 @@ import { TILES } from "../helpers/tiles";
 import Body from "../components/object-graphics/Body";
 
 export class FlyingEnemyPlacement extends GroundEnemyPlacement {
+  tickBetweenMovesInterval: any;
+  ticksUntilNextMove: any;
+  turnsAroundAtWater: any;
+  interactsWithGround: any;
+  spriteFacingDirection: any;
   constructor(properties, level) {
     super(properties, level);
     this.tickBetweenMovesInterval = 20;

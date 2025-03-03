@@ -14,6 +14,10 @@ const PRINCESS_SEQUENCE = [TILES.Princess1,TILES.Princess2];
 const PRINCESS_ANIMATION_SPEED = 30;
 
 export class LevelAnimatedFrames {
+  waterFrames: any;
+  fireFrames: any;
+  rabbitFrames: any;
+  princessFrames: any;
   constructor() {
     this.waterFrames = new PlacementTypeAnimationFrames(
       WATER_SEQUENCE,

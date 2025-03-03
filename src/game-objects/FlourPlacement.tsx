@@ -4,6 +4,7 @@ import { TILES } from "../helpers/tiles";
 import { PLACEMENT_TYPE_FLOUR } from "../helpers/consts";
 
 export class FlourPlacement extends Placement {
+  canBeStolen: any;
   constructor(properties, level) {
     super(properties, level);
     this.canBeStolen = false;

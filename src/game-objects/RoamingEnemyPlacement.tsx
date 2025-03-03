@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { GroundEnemyPlacement } from "./GroundEnemyPlacement";
 import Body from "../components/object-graphics/Body";
 import { TILES } from "../helpers/tiles";

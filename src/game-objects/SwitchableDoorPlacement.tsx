@@ -3,6 +3,7 @@ import Sprite from "../components/object-graphics/Sprite";
 import { TILES } from "../helpers/tiles";
 
 export class SwitchableDoorPlacement extends Placement {
+  isRaised: any;
   constructor(properties, level) {
     super(properties, level);
     this.isRaised = properties.isRaised ?? false;

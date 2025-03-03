@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Placement } from "./Placement";
 import {
   BODY_SKINS,

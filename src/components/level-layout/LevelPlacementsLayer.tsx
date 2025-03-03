@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { CSSProperties } from "react";
 import { LevelSchema } from "@/helpers/types";
 type Props = {

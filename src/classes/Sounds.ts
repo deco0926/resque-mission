@@ -15,6 +15,8 @@ const SFX_FILES = {
 };
 
 export class Sounds {
+  howls: any;
+  sfxVolume: any;
   constructor() {
     this.howls = {};
     this.sfxVolume = 0.5;

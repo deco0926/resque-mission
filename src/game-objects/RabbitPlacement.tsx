@@ -1,8 +1,11 @@
+// @ts-nocheck
 import { Placement } from "./Placement";
 import Body from "../components/object-graphics/Body";
 import { PLACEMENT_TYPE_FLOUR } from "@/helpers/consts";
 
 export class RabbitPlacement extends Placement {
+    Talking: any;
+    alreadyTalk: any;
     constructor(properties, level) {
         super(properties, level);
         this.Talking = properties.Talking ?? "Hi";

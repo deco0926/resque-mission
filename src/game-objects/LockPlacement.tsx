@@ -4,6 +4,9 @@ import { TILES } from "../helpers/tiles";
 import Sprite from "../components/object-graphics/Sprite";
 
 export class LockPlacement extends Placement {
+  color: any;
+  collectInFrames: any;
+  level: any;
   constructor(properties, level) {
     super(properties, level);
     this.color = properties.color ?? LOCK_KEY_COLORS.BLUE;

@@ -1,7 +1,7 @@
 export class GameLoop {
   private onStep: () => void;
   private rafCallback: number | null;
-
+    hasStopped: any ;
   constructor(onStep: () => void) {
     // onStep -> a callback fire on every single frame
     this.onStep = onStep;
@@ -45,12 +45,5 @@ stop() {
         this.rafCallback = null; // 清空回调引用
     }
 }
-
-// restart() {
-//     this.stop();
-//     setTimeout(() => {
-//       this.start(); // 3 秒后重新开始游戏循环
-//     }, 3000); 
-// }
 
 }

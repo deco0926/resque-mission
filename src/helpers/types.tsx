@@ -21,4 +21,9 @@ const levelSchema = z.object({
 });
 
 export type PlacementSchema = z.infer<typeof placementSchema>;
-export type LevelSchema = z.infer<typeof levelSchema>;
+export type LevelSchema = z.infer<typeof levelSchema> & {
+  deletePlacement?: (placement: PlacementSchema) => void; // ✅ 加入 deletePlacement 方法
+}& {heroRef?: { x: number; y: number }; // ✅ 加入 heroRef
+}& {
+  addPlacement?: (placement: PlacementSchema) => void; // ✅ 加入 deletePlacement 方法
+};

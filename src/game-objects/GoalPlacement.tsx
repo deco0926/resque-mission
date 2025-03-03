@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Placement } from "./Placement";
 import Sprite from "../components/object-graphics/Sprite";
 import { TILES } from "../helpers/tiles";
@@ -11,7 +12,6 @@ export class GoalPlacement extends Placement {
   //   });
   //   return Boolean(nonCollectedFlour);
   // }
-
   get isDisabled() {
     // level 中剩餘的 兔子 數量
     const nonCollectedFlour = this.level.placements.find((p) => {

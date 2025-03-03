@@ -4,6 +4,7 @@ import ElevatedSprite from "../components/object-graphics/ElevatedSprite";
 import { TILES } from "../helpers/tiles";
 
 export class KeyPlacement extends Placement {
+  color: any;
   constructor(properties, level) {
     super(properties, level);
     this.color = properties.color ?? LOCK_KEY_COLORS.BLUE;

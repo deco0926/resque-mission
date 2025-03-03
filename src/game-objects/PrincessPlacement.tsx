@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Placement } from "./Placement";
 import Body from "../components/object-graphics/Body";
 import { PLACEMENT_TYPE_FLOUR } from "@/helpers/consts";

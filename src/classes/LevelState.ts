@@ -13,7 +13,20 @@ type OnEmitType = (level: LevelSchema) => void;
 export class LevelState {
   id: string;
   onEmit: OnEmitType;
-
+  directionControls : any;
+  isCompleted: any;
+  editModePlacementType: any;
+  deathOutcome: any;
+  theme: any;
+  tilesWidth: any;
+  tilesHeight: any;
+  placements: any;
+  inventory: any;
+  heroRef: any;
+  camera: any;
+  clock: any;
+  animatedFrames
+  gameLoop: any;
   constructor(levelId: string, onEmit: OnEmitType) {
     // publisher-subscriber pattern
     // onEmit 函數在這裡被用作一種回調機制，允許外部程式碼 "訂閱" LevelState 的狀態變化。

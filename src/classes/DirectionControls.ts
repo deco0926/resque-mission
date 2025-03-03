@@ -6,6 +6,10 @@ import {
 } from "../helpers/consts";
 
 export class DirectionControls {
+  directionKeys: any;
+  heldDirections: any;
+  directionKeyDownHandler: any;
+  directionKeyUpHandler: any;
   constructor() {
     this.directionKeys = {
       ArrowDown: DIRECTION_DOWN,

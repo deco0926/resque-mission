@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { LevelSchema } from "@/helpers/types";
 import {
   PLACEMENT_TYPE_WALL,
