@@ -11,6 +11,7 @@ import {
 } from "../helpers/consts";
 import { Collision } from "../classes/Collision";
 import soundsManager, { SFX } from "../classes/Sounds";
+import Body from "@/components/object-graphics/Body";
 export class BodyPlacement extends Placement {
   getCollisionAtNextPosition(direction) {
     // 取得移動到下一個位置遇到的 placements
