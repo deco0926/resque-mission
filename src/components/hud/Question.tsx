@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import Image from "next/image";
 
 export default function Question({ id, onClose }: { id: string; onClose: () => void }) {
   let question = "";
@@ -43,11 +44,14 @@ export default function Question({ id, onClose }: { id: string; onClose: () => v
         paddingBottom: "30px",
       }}
     >
+      {/* ✅ 問題框 */}
       <div style={{ position: "relative", marginBottom: "20px" }}>
-        <img
+        <Image
           src="/text-box.png"
           alt="問題框"
-          style={{ width: "600px", height: "150px", objectFit: "contain" }}
+          width={600} // ✅ 明確指定寬度
+          height={150} // ✅ 明確指定高度
+          style={{ objectFit: "contain" }}
         />
         <p
           style={{
@@ -70,10 +74,16 @@ export default function Question({ id, onClose }: { id: string; onClose: () => v
         </p>
       </div>
 
+      {/* ✅ 選項框 */}
       <div style={{ display: "flex", justifyContent: "center", gap: "20px" }}>
         {["A", "B", "C", "D"].map((option) => (
           <div key={option} style={{ position: "relative", cursor: "pointer" }} onClick={() => handleAnswer(option)}>
-            <img src="/text-box.png" alt={`選項 ${option}`} style={{ width: "250px", height: "100px" }} />
+            <Image
+              src="/text-box.png"
+              alt={`選項 ${option}`}
+              width={250} // ✅ 明確指定寬度
+              height={100} // ✅ 明確指定高度
+            />
             <p
               style={{
                 position: "absolute",

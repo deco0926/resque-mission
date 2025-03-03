@@ -8,6 +8,7 @@ import { spriteSheetImageAtom } from "../atoms/spriteSheetImageAtom";
 import soundsManager from "@/classes/Sounds";
 import HomePage from "./homepage";
 import Question from "@/components/hud/Question";
+import Image from "next/image"; // ✅ 用於 <Image /> 標籤
 
 soundsManager.init();
 
@@ -36,10 +37,10 @@ export default function Home() {
   };
 
   useEffect(() => {
-    const image = new Image();
-    image.src = SPRITE_SHEET_SRC;
-    image.onload = () => {
-      setSpriteSheetImage(image);
+    const spriteImage = new window.Image(); // ✅ 改名，避免與 next/image 衝突
+    spriteImage.src = SPRITE_SHEET_SRC;
+    spriteImage.onload = () => {
+      setSpriteSheetImage(spriteImage);
     };
   }, [setSpriteSheetImage]);
 
@@ -128,10 +129,12 @@ export default function Home() {
             flexDirection: "column",
           }}
         >
-          <img
+          <Image
             src="/text-box.png"
             alt="Text Box"
-            style={{ width: "1250px", height: "250px", objectFit: "contain" }}
+            width={1250}
+            height={250}
+            style={{ objectFit: "contain" }}
           />
           <div
             style={{

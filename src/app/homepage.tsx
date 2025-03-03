@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import Image from "next/image";
 
 export default function HomePage({ onGameStart }: { onGameStart: () => void }) {
   const [page, setPage] = useState<number>(-1); // ✅ 預設為 -1，顯示開始遊戲畫面
@@ -105,10 +106,12 @@ export default function HomePage({ onGameStart }: { onGameStart: () => void }) {
           textAlign: "center",
         }}
       >
-        <img
+        <Image
           src={storyImages[page]}
           alt={`劇情第 ${page + 1} 頁`}
-          style={{ width: "40%", height: "auto", marginBottom: "20px" }}
+          width={500} // ✅ 設定固定寬度
+          height={300} // ✅ 設定固定高度
+          style={{ marginBottom: "20px" }}
         />
         <h2 style={{ fontSize: "36px", marginBottom: "20px", maxWidth: "80%" }}>{storyTexts[page]}</h2>
         <p style={{ fontSize: "18px", opacity: 0.7, cursor: "pointer" }} onClick={nextPage}>
@@ -135,7 +138,7 @@ export default function HomePage({ onGameStart }: { onGameStart: () => void }) {
           textAlign: "center",
         }}
       >
-        <img src="/rabbit.png" alt="月兔" style={{ width: "150px", height: "auto", marginBottom: "20px" }} />
+        <Image src="/rabbit.png" alt="月兔" width={150} height={150} />
         <h2 style={{ fontSize: "36px", marginBottom: "20px", maxWidth: "80%" }}>
           月兔將是你最忠心的夥伴，碰撞他即可觸發對話，並給予你月亮寶石
         </h2>
@@ -166,13 +169,13 @@ export default function HomePage({ onGameStart }: { onGameStart: () => void }) {
         {/* ✅ 月亮寶石未收集完 */}
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "50px", marginBottom: "20px" }}>
           <div style={{ textAlign: "center" }}>
-            <img src="/moon1.png" alt="未收集完" style={{ width: "150px", height: "auto" }} />
+            <Image src="/moon1.png" alt="未收集完" width={150} height={150} />
             <p style={{ fontSize: "20px", marginTop: "10px" }}>未收集完</p>
           </div>
 
           {/* ✅ 月亮寶石已收集完 */}
           <div style={{ textAlign: "center" }}>
-            <img src="/moon2.png" alt="已收集完" style={{ width: "150px", height: "auto" }} />
+            <Image src="/moon2.png" alt="已收集完" width={150} height={150} />
             <p style={{ fontSize: "20px", marginTop: "10px" }}>已收集完</p>
           </div>
         </div>

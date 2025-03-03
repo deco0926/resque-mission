@@ -202,14 +202,14 @@ export class BodyPlacement extends Placement {
           } else if (event.type === "Againround") {
               console.log(`答錯，重置角色位置，id: ${event.detail.id}`);
               if (event.detail.id === "DemoLevel1") {
-                  this.x = 1;
-                  this.y = 5;
+                  this.x = 11;
+                  this.y = 6;
               } else if (event.detail.id === "DemoLevel2") {
-                  this.x = 2;
-                  this.y = 2;
+                  this.x = 8;
+                  this.y = 1;
               } else if (event.detail.id === "DemoLevel3") {
                   this.x = 1;
-                  this.y = 8;
+                  this.y = 2;
               }
               soundsManager.playSfx(SFX.LOSE);
           }
