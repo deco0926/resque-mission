@@ -113,6 +113,8 @@ export class IcePlacement extends Placement {
   changesHeroSkinOnCollide() {
     if (this.level.inventory.has(PLACEMENT_TYPE_ICE_PICKUP)) {
       return BODY_SKINS.ICE;
+    }else {
+      return BODY_SKINS.SCARED;
     }
   }
 
