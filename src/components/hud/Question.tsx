@@ -12,13 +12,13 @@ export default function Question({ id, onClose }: { id: string; onClose: () => v
     options = ["月兔", "雉雞", "小白狗", "小猴子"];
     correctAnswer = "A";
   } else if (id === "DemoLevel2") {
-    question = "請問嫦娥奔月的故事來自哪個國家?";
-    options = ["日本", "中國", "美國", "印度"];
-    correctAnswer = "B";
-  } else if (id === "DemoLevel3") {
     question = "月亮的表面主要由甚麼組成?";
     options = ["水和沙子", "石頭和岩石", "金屬和冰", "樹木和土壤"];
     correctAnswer = "B";
+  } else if (id === "DemoLevel3") {
+    question = "請問月亮的高度角是什麼？";
+    options = ["月亮的亮度", "月亮的溫度", "月亮與地平線的角度", "月亮的直徑"];
+    correctAnswer = "C";
   }
 
   console.log(`當前關卡 ID: ${id}`);
@@ -59,8 +59,8 @@ export default function Question({ id, onClose }: { id: string; onClose: () => v
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-            fontSize: "25px",
-            fontWeight: "bold",
+            fontSize: "28px",
+            // fontWeight: "bold",
             fontFamily: "Cubic",
             color: "white",
             maxWidth: "80%",
@@ -81,8 +81,8 @@ export default function Question({ id, onClose }: { id: string; onClose: () => v
             <Image
               src="/text-box.png"
               alt={`選項 ${option}`}
-              width={250} // ✅ 明確指定寬度
-              height={100} // ✅ 明確指定高度
+              width={350} // ✅ 明確指定寬度
+              height={70} // ✅ 明確指定高度
             />
             <p
               style={{
@@ -90,8 +90,8 @@ export default function Question({ id, onClose }: { id: string; onClose: () => v
                 top: "50%",
                 left: "50%",
                 transform: "translate(-50%, -50%)",
-                fontSize: "25px",
-                fontWeight: "bold",
+                fontSize: "28px",
+                // fontWeight: "bold",
                 fontFamily: "Cubic",
                 color: "white",
                 textAlign: "center",

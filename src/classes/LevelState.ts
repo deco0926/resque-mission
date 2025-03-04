@@ -165,20 +165,23 @@ export class LevelState {
       secondsRemaining: this.clock.secondsRemaining,
       inventory: this.inventory,
       // 重新開始
-      restart: () => {
-        this.start();
-      },
+      
       // Edit Mode API
       // 將 method 傳出去供外部使用
-      enableEditing: true,
+      enableEditing: false,
+      enableReset: true,
       editModePlacementType: this.editModePlacementType,
       addPlacement: this.addPlacement.bind(this),
       deletePlacement: this.deletePlacement.bind(this),
       setEditModePlacementType: this.setEditModePlacementType.bind(this),
       copyPlacementsToClipboard: this.copyPlacementsToClipboard.bind(this),
+      restart: this.restart.bind(this),
     };
   }
-
+  restart() {
+    this.gameLoop.stop();
+    this.start();
+  }
   stealInventory() {
     this.placements.forEach((p) => {
       p.resetHasBeenCollected();

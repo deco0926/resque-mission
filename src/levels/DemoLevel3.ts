@@ -124,8 +124,8 @@ const DemoLevel1 = {
     { x: 9, y: 6, type: PLACEMENT_TYPE_WATER_PICKUP },
     
 
-    { x: 6, y: 6, type: PLACEMENT_TYPE_RABBIT,Talking:"科學家認為月球形成於約 45 億年前，可能是因為一顆火星大小的天體撞擊地球，噴出的碎片逐漸聚集成月球。月球表面表面主要由各式各樣的石頭與岩石組成，而且缺乏大氣層，因此沒有風或液態水。"},
-    { x: 11, y: 2, type: PLACEMENT_TYPE_RABBIT,Talking:"月球的引力影響地球的潮汐，使海水定期漲落，並穩定地球自轉軸，維持氣候穩定。此外，月球的不同相位（如滿月、新月）影響農耕、文化與傳統節日，例如中秋節即與滿月有關。"},
+    { x: 6, y: 6, type: PLACEMENT_TYPE_RABBIT,Talking:"你知道月亮的高度角嗎？就是月亮跟地平線之間的角度！簡單來說，月亮越高，角度就越大；月亮快落下時，角度就變小啦！ 高度角0度的時候，月亮剛好就在地平線上哦！這時候就是月亮剛升起或快要落下的時候，記得抬頭看看喔！ "},
+    { x: 11, y: 2, type: PLACEMENT_TYPE_RABBIT,Talking:"你知道嗎？用拳頭來測量天空的高度角，一個拳頭大約是10度哦！這樣就能大概估算月亮離地平線有多高啦！"},
 
     { x: 3, y: 10, type: PLACEMENT_TYPE_KEY,color:'GREEN'},
     { x: 2, y: 6, type: PLACEMENT_TYPE_LOCK,color:'GREEN'},

@@ -58,50 +58,93 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
+    let interval: NodeJS.Timeout | null = null;
+    let isKeyDown = false; // ✅ 防止長按 Enter
+    let isDialogueActive = false; // ✅ 防止同時多次觸發對話
+  
     const handleNpcTalk = (event) => {
+      if (isDialogueActive) return; // ✅ 避免多次觸發
+      isDialogueActive = true;
+  
       const fullText = event.detail?.message || "......";
       setTextMessage(fullText);
-
+      setDisplayedText(""); // ✅ 確保對話內容從空白開始
+      console.log("對話開始: ", fullText);
+  
       let index = 0;
       let currentText = "";
-      let interval: NodeJS.Timeout | null = setInterval(() => { // ✅ 讓 interval 可以是 null
+  
+      // ✅ 確保沒有其他 `interval` 在運行
+      if (interval !== null) {
+        clearInterval(interval);
+      }
+  
+      interval = setInterval(() => {
         currentText += fullText[index];
         setDisplayedText(currentText);
         index++;
-      
+  
         if (index >= fullText.length) {
-          if (interval !== null) { // ✅ 確保 interval 存在
+          if (interval !== null) {
             clearInterval(interval);
-            interval = null; // ✅ TypeScript 允許
+            interval = null;
           }
         }
-      }, 100);
-      
-      const handleEnterKeyPress = (e: KeyboardEvent) => { // ✅ 明確指定事件型別
-        if (e.code === "Enter") {
-          if (interval !== null) { // ✅ 確保 interval 存在
+      }, 50); // ✅ 降低間隔，減少同時執行機率
+  
+      const handleEnterKeyPress = (e: KeyboardEvent) => {
+        if (e.code === "Enter" && !isKeyDown) {
+          isKeyDown = true;
+  
+          if (interval !== null) {
             clearInterval(interval);
-            setDisplayedText(fullText);
             interval = null;
+            setDisplayedText(fullText);
           } else {
             setDisplayedText("");
             setTextMessage("");
+            isDialogueActive = false; // ✅ 確保可以再次觸發
+            console.log("對話結束");
+  
             document.dispatchEvent(new CustomEvent("NpcTalkClose"));
             document.removeEventListener("keydown", handleEnterKeyPress);
+            document.removeEventListener("keyup", handleEnterKeyUp);
           }
         }
       };
-      
-
+  
+      const handleEnterKeyUp = (e: KeyboardEvent) => {
+        if (e.code === "Enter") {
+          isKeyDown = false;
+        }
+      };
+  
       document.addEventListener("keydown", handleEnterKeyPress);
+      document.addEventListener("keyup", handleEnterKeyUp);
     };
-
+  
+    const handleCloseNpcTalk = () => {
+      if (interval !== null) {
+        clearInterval(interval);
+        interval = null;
+      }
+      isDialogueActive = false; // ✅ 讓新的對話可以正常啟動
+      setDisplayedText("");
+      setTextMessage("");
+      document.dispatchEvent(new CustomEvent("NpcTalkClose"));
+    };
+  
     document.addEventListener("NpcTalk1", handleNpcTalk);
+    document.addEventListener("CloseNpcTalk", handleCloseNpcTalk);
+  
     return () => {
       document.removeEventListener("NpcTalk1", handleNpcTalk);
+      document.removeEventListener("CloseNpcTalk", handleCloseNpcTalk);
     };
   }, []);
-
+  
+ 
+    
   // ✅ **避免 `homepage.tsx` 被短暫渲染**
   if (gameStarted === null) {
     return null; // ✅ **等待 cookie 檢查完畢**
@@ -145,7 +188,7 @@ export default function Home() {
               position: "absolute",
               color: "#fff",
               fontFamily: "Cubic",
-              fontSize: "30px",
+              fontSize: "28px",
               textAlign: "left",
               padding: "20px",
               maxWidth: "1000px",

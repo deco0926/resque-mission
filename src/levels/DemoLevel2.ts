@@ -140,8 +140,8 @@ const DemoLevel2 = {
     { x: 10, y: 6, type: PLACEMENT_TYPE_THIEF },
     { x: 14, y: 8, type: PLACEMENT_TYPE_THIEF },
 
-    { x: 2, y: 11, type: PLACEMENT_TYPE_RABBIT,Talking:'嫦娥原是后羿的妻子，后羿射下九個太陽後，得到了西王母賜予的不死藥。嫦娥因緣際會吞下藥後，身體變輕，飛升至月宮，成為月神。相傳她在廣寒宮中，唯有玉兔相伴，思念著人間的后羿。' },
-    { x: 14, y: 2, type: PLACEMENT_TYPE_RABBIT,Talking:'嫦娥奔月的故事來自中國，不僅成為中秋節的傳說來源，也啟發了許多詩詞與藝術作品。現代中國的「嫦娥」探月工程更以此命名，象徵人類對月球的探索與夢想。' },
+    { x: 2, y: 11, type: PLACEMENT_TYPE_RABBIT,Talking:'你知道嗎？月亮的表面可不是軟綿綿的，而是滿滿的石頭和岩石哦！ 對了對了！你有沒有注意到月亮上那些大大小小的坑洞啊？那些可不是火山炸出來的，而是隕石撞出來的哦！因為月亮沒有大氣層，隕石直接砰！砸在表面，久而久之就變成現在這樣啦！'},
+    { x: 14, y: 2, type: PLACEMENT_TYPE_RABBIT,Talking:'月亮其實不會自己發光哦！它就像一面大鏡子，把太陽的光反射回來，所以我們才能在夜晚看到亮亮的月亮！ 嘿嘿，在月亮上跳起來感覺超輕飄飄的，因為月亮的重力只有地球的1/6！所以在那裡走路，就像是在慢動作跳舞一樣呢！'},
 
     { x: 5, y: 11, type: PLACEMENT_TYPE_SWITCH_DOOR,israised:false },
     { x: 6, y: 6, type: PLACEMENT_TYPE_SWITCH_DOOR,israised:true },
