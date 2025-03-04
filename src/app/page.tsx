@@ -188,7 +188,7 @@ export default function Home() {
               position: "absolute",
               color: "#fff",
               fontFamily: "Cubic",
-              fontSize: "28px",
+              fontSize: "30px",
               textAlign: "left",
               padding: "20px",
               maxWidth: "1000px",
