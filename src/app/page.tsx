@@ -40,12 +40,7 @@ export default function Home() {
   }, [setSpriteSheetImage]);
 
   // ✅ **新增縮放功能**
-  useEffect(() => {
-    document.body.style.transform = "scale(0.75)";
-    document.body.style.transformOrigin = "top left";
-    document.body.style.width = "133.33%"; // 避免畫面變小
-    document.body.style.height = "133.33%"; // 避免畫面變小
-  }, []);
+  
 
   useEffect(() => {
     const handleShowQuestion = (event: CustomEvent) => {

@@ -17,7 +17,12 @@ export default function RenderLevel() {
   const endingstate = useRecoilValue(endingAtom);
   const [level, setLevel] = useState<LevelSchema | null>(null);
   const currentLevelId = useRecoilValue(currentLevelIdAtom);
-
+  useEffect(() => {
+    document.body.style.transform = "scale(0.75)";
+    document.body.style.transformOrigin = "top left";
+    document.body.style.width = "133.33%"; // 避免畫面變小
+    document.body.style.height = "133.33%"; // 避免畫面變小
+  }, []);
   useEffect(() => {
     // Create and subscribe to state changes
     const levelState = new LevelState(currentLevelId, (newState) => {

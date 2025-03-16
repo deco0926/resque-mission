@@ -5,12 +5,12 @@ import Image from "next/image";
 export default function HomePage({ onGameStart }: { onGameStart: () => void }) {
   const [page, setPage] = useState<number>(-1); // ✅ 預設為 -1，顯示開始遊戲畫面
   const [isKeyDown, setIsKeyDown] = useState<boolean>(false); // ✅ 防止長按 Enter 跳過多頁
-  useEffect(() => {
-    document.body.style.transform = "scale(1)";
-    document.body.style.transformOrigin = "top left";
-    document.body.style.width = "100%";
-    document.body.style.height = "100%";
-  }, []);
+  // useEffect(() => {
+  //   document.body.style.transform = "scale(1)";
+  //   document.body.style.transformOrigin = "top left";
+  //   document.body.style.width = "100%";
+  //   document.body.style.height = "100%";
+  // }, []);
   // ✅ 切換到下一頁
   const nextPage = () => {
     setPage((prevPage) => prevPage + 1);
