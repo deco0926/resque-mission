@@ -11,7 +11,10 @@ import { useRecoilValue } from "recoil";
 import { currentLevelIdAtom } from "../../atoms/currentLevelIdAtom";
 import DeathMessage from "../hud/DeathMessage";
 import TopHud from "../hud/TopHud";
+import EndingPage from "@/app/EndingPage";
+import { endingAtom } from "@/atoms/endingAtom";
 export default function RenderLevel() {
+  const endingstate = useRecoilValue(endingAtom);
   const [level, setLevel] = useState<LevelSchema | null>(null);
   const currentLevelId = useRecoilValue(currentLevelIdAtom);
 
@@ -34,30 +37,33 @@ export default function RenderLevel() {
     return null;
   }
   const cameraTranslate = `translate3d(${level.cameraTransformX}, ${level.cameraTransformY}, 0)`;
+  if (endingstate === true){
+    return <EndingPage />
+  } else {
+    return (
+      <div
+        className={styles.fullScreenContainer}
+        style={{
+          background: THEME_BACKGROUNDS[level.theme],
+        }}
+      >
+        <div className={styles.gameScreen}>
+          <div
+            style={{
+              transform: cameraTranslate,
+            }}
+          >
+            {/* 遊戲場景層 */}
+            <LevelBackgroundTilesLayer level={level} />
+            {/* 遊戲物體層 */}
+            <LevelPlacementsLayer level={level} />
+          </div>
 
-  return (
-    <div
-      className={styles.fullScreenContainer}
-      style={{
-        background: THEME_BACKGROUNDS[level.theme],
-      }}
-    >
-      <div className={styles.gameScreen}>
-        <div
-          style={{
-            transform: cameraTranslate,
-          }}
-        >
-          {/* 遊戲場景層 */}
-          <LevelBackgroundTilesLayer level={level} />
-          {/* 遊戲物體層 */}
-          <LevelPlacementsLayer level={level} />
+          {level.isCompleted && <LevelCompleteMessage />}
+          {level.deathOutcome && <DeathMessage level={level} />}
         </div>
-
-        {level.isCompleted && <LevelCompleteMessage />}
-        {level.deathOutcome && <DeathMessage level={level} />}
+        <TopHud level={level} />
       </div>
-      <TopHud level={level} />
-    </div>
-  );
+    );
+  }
 }

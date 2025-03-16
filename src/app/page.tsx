@@ -9,6 +9,7 @@ import soundsManager from "@/classes/Sounds";
 import HomePage from "./homepage";
 import Question from "@/components/hud/Question";
 import Image from "next/image"; // ✅ 用於 <Image /> 標籤
+import { DirectionControls } from "@/classes/DirectionControls";
 
 soundsManager.init();
 
@@ -62,6 +63,7 @@ export default function Home() {
     let interval: NodeJS.Timeout | null = null;
     let isKeyDown = false;
     let isDialogueActive = false;
+    const directionControls = new DirectionControls();
 
     const handleNpcTalk = (event: CustomEvent) => {
       if (isDialogueActive) return;
@@ -91,8 +93,8 @@ export default function Home() {
         }
       }, 50);
 
-      const handleEnterKeyPress = (e: KeyboardEvent) => {
-        if (e.code === "Enter" && !isKeyDown) {
+      const handleKeyPress = (e: KeyboardEvent) => {
+        if ((e.code === "Enter" || directionControls.directionKeys[e.key]) && !isKeyDown) {
           isKeyDown = true;
 
           if (interval !== null) {
@@ -105,20 +107,20 @@ export default function Home() {
             isDialogueActive = false;
 
             document.dispatchEvent(new CustomEvent("NpcTalkClose"));
-            document.removeEventListener("keydown", handleEnterKeyPress);
-            document.removeEventListener("keyup", handleEnterKeyUp);
+            document.removeEventListener("keydown", handleKeyPress);
+            document.removeEventListener("keyup", handleKeyUp);
           }
         }
       };
 
-      const handleEnterKeyUp = (e: KeyboardEvent) => {
-        if (e.code === "Enter") {
+      const handleKeyUp = (e: KeyboardEvent) => {
+        if (e.code === "Enter" || directionControls.directionKeys[e.key]) {
           isKeyDown = false;
         }
       };
 
-      document.addEventListener("keydown", handleEnterKeyPress);
-      document.addEventListener("keyup", handleEnterKeyUp);
+      document.addEventListener("keydown", handleKeyPress);
+      document.addEventListener("keyup", handleKeyUp);
     };
 
     const handleCloseNpcTalk = () => {
@@ -203,7 +205,7 @@ export default function Home() {
               fontFamily: "Cubic",
             }}
           >
-            按下 Enter 鍵繼續...
+            按下 Enter 或 方向鍵 繼續...
           </p>
         </div>
       )}
