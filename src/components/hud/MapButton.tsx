@@ -4,6 +4,7 @@ import { TILES } from "../../helpers/tiles";
 import PixelNumber from "../object-graphics/PixelNumber";
 import { TitleAtom } from "@/atoms/TitleAtom";
 import { useRecoilState } from "recoil";
+import PixelText from "../object-graphics/PixelText";
 
 export default function MapButton({ level }) {
   const [TitleState, setTitleState] = useRecoilState(TitleAtom);
@@ -23,7 +24,7 @@ export default function MapButton({ level }) {
       <div onClick={handleClick} style={{ cursor: "pointer" }}>
         <Sprite frameCoord={TILES.MAP_BUTTON} />
       </div>
-
+      {/* <PixelText text='FLOOR' ></PixelText> */}
       {/* PixelNumber 不受點擊影響 */}
       {/* <PixelNumber number={parseInt(nowlevel, 10) - 1} /> */}
     </div>
