@@ -13,6 +13,9 @@ export default function LevelCompleteMessage() {
     const currentIndex = levelsArray.findIndex((id) => {
       return id === currentId;
     });
+    if (currentId === 'DemoLevel1') {
+      console.log('Ending');
+    }
     const nextLevelId = levelsArray[currentIndex + 1] ?? levelsArray[0];
     setCurrentId(nextLevelId);
   };

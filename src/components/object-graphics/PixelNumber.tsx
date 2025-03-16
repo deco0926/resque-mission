@@ -1,4 +1,4 @@
-import styles from "./PixelNumber.module.css";
+import styles from "./Pixel.module.css";
 
 const Zero = () => {
   return (
@@ -203,6 +203,68 @@ const Dash = () => {
     </svg>
   );
 };
+const Slash = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="-4 -50 90 185"
+      shapeRendering="crispEdges"
+      className={styles.svgcharacter}
+    >
+      <path
+        d="M0 0 C6.27 0 12.54 0 19 0 C19 6.27 19 12.54 19 19 C25.27 19 31.54 19 38 19 C38 25.27 38 31.54 38 38 C31.73 38 25.46 38 19 38 C19 44.6 19 51.2 19 58 C12.73 58 6.46 58 0 58 C0 64.6 0 71.2 0 78 C-6.6 78 -13.2 78 -20 78 C-20 84.6 -20 91.2 -20 98 C-26.6 98 -33.2 98 -40 98 C-40 91.4 -40 84.8 -40 78 C-46.6 78 -53.2 78 -60 78 C-60 71.4 -60 64.8 -60 58 C-53.4 58 -46.8 58 -40 58 C-40 51.4 -40 44.8 -40 38 C-33.4 38 -26.8 38 -20 38 C-20 31.73 -20 25.46 -20 19 C-13.4 19 -6.8 19 0 19 C0 12.73 0 6.46 0 0 Z "
+        transform="translate(50,0)"
+        fill="#FBF005"
+      />
+      <path
+        d="M0 0 C6.27 0 12.54 0 19 0 C19 6.27 19 12.54 19 19 C25.27 19 31.54 19 38 19 C38 25.27 38 31.54 38 38 C31.73 38 25.46 38 19 38 C19 44.6 19 51.2 19 58 C12.73 58 6.46 58 0 58 C0 51.4 0 44.8 0 38 C-6.6 38 -13.2 38 -20 38 C-20 31.73 -20 25.46 -20 19 C-13.4 19 -6.8 19 0 19 C0 12.73 0 6.46 0 0 Z "
+        transform="translate(50,0)"
+        fill="#FBF005"
+      />
+      <path
+        d="M0 0 C6.6 0 13.2 0 20 0 C20 6.6 20 13.2 20 20 C13.4 20 6.8 20 0 20 C0 13.4 0 6.8 0 0 Z " 
+        transform="translate(10,78)"
+        fill="#000000"
+      />
+      <path
+        d="M0 0 C6.6 0 13.2 0 20 0 C20 6.6 20 13.2 20 20 C13.4 20 6.8 20 0 20 C0 13.4 0 6.8 0 0 Z " 
+        transform="translate(30,58)"
+        fill="#000000"
+      />
+      <path
+        d="M0 0 C6.6 0 13.2 0 20 0 C20 6.6 20 13.2 20 20 C13.4 20 6.8 20 0 20 C0 13.4 0 6.8 0 0 Z " 
+        transform="translate(-10,58)"
+        fill="#000000"
+      />
+      <path
+        d="M0 0 C6.6 0 13.2 0 20 0 C20 6.6 20 13.2 20 20 C13.4 20 6.8 20 0 20 C0 13.4 0 6.8 0 0 Z " 
+        transform="translate(10,38)"
+        fill="#000000"
+      />
+      <path
+       d="M0 0 C6.27 0 12.54 0 19 0 C19 6.6 19 13.2 19 20 C12.73 20 6.46 20 0 20 C0 13.4 0 6.8 0 0 Z " 
+       transform="translate(50,38)"
+        fill="#000000"
+      />
+      <path
+        d="M0 0 C6.6 0 13.2 0 20 0 C20 6.27 20 12.54 20 19 C13.4 19 6.8 19 0 19 C0 12.73 0 6.46 0 0 Z " 
+        transform="translate(30,19)"
+        fill="#000000"
+      />
+      <path
+        d="M0 0 C6.27 0 12.54 0 19 0 C19 6.27 19 12.54 19 19 C12.73 19 6.46 19 0 19 C0 12.73 0 6.46 0 0 Z " 
+        transform="translate(70,19)"
+        fill="#000000"
+      />
+      <path
+        d="M0 0 C6.27 0 12.54 0 19 0 C19 6.27 19 12.54 19 19 C12.73 19 6.46 19 0 19 C0 12.73 0 6.46 0 0 Z " 
+        transform="translate(50,0)"
+        fill="#000000"
+      />
+
+    </svg>
+  );
+}
 
 const componentMap = {
   0: <Zero />,
@@ -216,6 +278,8 @@ const componentMap = {
   8: <Eight />,
   9: <Nine />,
   "-": <Dash />,
+  "/": <Slash/>,
+
 };
 
 export default function PixelNumber({ number }) {
@@ -225,5 +289,5 @@ export default function PixelNumber({ number }) {
       return <span key={i}>{componentMap[key]}</span>;
     });
 
-  return <div className={styles.pixelNumber}>{mappedChars}</div>;
+  return <div className={styles.pixel}>{mappedChars}</div>;
 }

@@ -1,8 +1,12 @@
-.pixelNumber {
+.pixel {
   display: flex;
 }
 
 .svgCharacter {
   display: block;
   width: 5px;
+}
+.svgcharacter {
+  display: block;
+  width: 6.1px;
 }

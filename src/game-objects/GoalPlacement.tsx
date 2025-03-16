@@ -1,9 +1,9 @@
 // @ts-nocheck
-import { Placement } from "./Placement";
 import Sprite from "../components/object-graphics/Sprite";
 import { TILES } from "../helpers/tiles";
 import { PLACEMENT_TYPE_FLOUR } from "../helpers/consts";
 import { PLACEMENT_TYPE_RABBIT } from "../helpers/consts";
+import { Placement } from "./Placement";
 export class GoalPlacement extends Placement {
   // get isDisabled() {
   //   // level 中剩餘的 flour 數量

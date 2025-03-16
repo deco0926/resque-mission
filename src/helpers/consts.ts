@@ -39,6 +39,7 @@ export const DIRECTION_UP = "UP";
 export const DIRECTION_DOWN = "DOWN";
 
 export const DEATH_TYPE_CLOCK = "CLOCK";
+export const PLACEMENT_TYPE_BOARD = "BOARD";
 
 type DirectionUpdateMapType = {
   [key: string]: { x: number; y: number };
@@ -60,6 +61,7 @@ export const BODY_SKINS = {
   TELEPORT: "TELEPORT",
   DEATH: "DEATH",
   SCARED: "SCARED",
+  MOON: "MOON",
 };
 
 export const ICE_CORNERS = {

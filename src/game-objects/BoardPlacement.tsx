@@ -1,17 +1,16 @@
 // @ts-nocheck
 import { Placement } from "./Placement";
 import Body from "../components/object-graphics/Body";
-import { PLACEMENT_TYPE_FLOUR } from "@/helpers/consts";
-import { PLACEMENT_TYPE_RABBIT } from "@/helpers/consts";
-export class RabbitPlacement extends Placement {
+import { TILES } from "../helpers/tiles";
+import Sprite from "../components/object-graphics/Sprite";
+
+export class BoardPlacement extends Placement {
     Talking: any;
     alreadyTalk: any;
-    MoonGet : any;
     constructor(properties, level) {
         super(properties, level);
         this.Talking = properties.Talking ?? "Hi";
         this.alreadyTalk = properties.alreadyTalk ?? false ;
-        this.MoonGet = properties.MoonGet ?? false ;
       }
     canbeTalked() {
         return true;
@@ -19,12 +18,14 @@ export class RabbitPlacement extends Placement {
     isSolidForBody(_body) {
         return true;
     }
-    renderComponent() {
-        const rabbitFrame = this.level.animatedFrames.rabbitFrame;
-        return <Body frameCoord={rabbitFrame} yTranslate={0} showShadow={true} />;
-    }
+    tick() {
+        if (this.alreadyTalk === true) {
+            console.log("移除告示牌", this);
+            this.level.deletePlacement(this);
+        }
+      }
     NpcTalk() {
-        this.alreadyTalk = true ;
+        this.alreadyTalk = true;
         const event = new CustomEvent("NpcTalk1", {
             detail: { message: this.Talking } // ✅ 傳遞 Talking 內容
         });
@@ -33,5 +34,8 @@ export class RabbitPlacement extends Placement {
     }
     zIndex() {
         return 2;
+    }
+    renderComponent() {
+        return <Sprite frameCoord={TILES.BOARD}/>;
     }
 }

@@ -10,4 +10,7 @@ export class IcePickupPlacement extends Placement {
   renderComponent() {
     return <Sprite frameCoord={TILES.ICE_PICKUP} />;
   }
+  zIndex() {
+    return 2;
+  }
 }

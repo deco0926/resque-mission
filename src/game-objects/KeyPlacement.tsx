@@ -19,4 +19,7 @@ export class KeyPlacement extends Placement {
       this.color === LOCK_KEY_COLORS.BLUE ? TILES.BLUE_KEY : TILES.GREEN_KEY;
     return <ElevatedSprite frameCoord={frameCoord} />;
   }
+  zIndex() {
+    return 2;
+  }
 }

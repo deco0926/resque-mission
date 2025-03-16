@@ -16,8 +16,8 @@
 }
 
 .topHudRight {
-  /* transform: scale(var(--pixel-size));
-  transform-origin: top right; */
+  transform: scale(var(--pixel-size));
+  transform-origin: top right;
   display: flex;
   gap: 2px;
 }

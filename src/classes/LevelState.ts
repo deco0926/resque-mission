@@ -165,7 +165,7 @@ export class LevelState {
       secondsRemaining: this.clock.secondsRemaining,
       inventory: this.inventory,
       // 重新開始
-      
+      id: this.id,
       // Edit Mode API
       // 將 method 傳出去供外部使用
       enableEditing: false,
@@ -182,6 +182,19 @@ export class LevelState {
     this.gameLoop.stop();
     this.start();
   }
+  changelevel(newLevelId: string) {
+    console.log(`切換關卡: ${this.id} → ${newLevelId}`);
+
+    // ✅ 停止當前遊戲循環
+    this.gameLoop.stop();
+
+    // ✅ 更新關卡 ID
+    this.id = newLevelId;
+
+    // ✅ 重新初始化關卡
+    this.start();
+  }
+
   stealInventory() {
     this.placements.forEach((p) => {
       p.resetHasBeenCollected();

@@ -10,4 +10,7 @@ export class WaterPickupPlacement extends Placement {
   renderComponent() {
     return <Sprite frameCoord={TILES.WATER_PICKUP} />;
   }
+  zIndex() {
+    return 2;
+  }
 }

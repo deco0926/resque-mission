@@ -23,6 +23,7 @@ import {
   PLACEMENT_TYPE_CIABATTA,
   PLACEMENT_TYPE_RABBIT,
   PLACEMENT_TYPE_PRINCESS,
+  PLACEMENT_TYPE_BOARD,
 } from "../helpers/consts";
 
 import { HeroPlacement } from "../game-objects/HeroPlacement";
@@ -48,10 +49,11 @@ import { ThiefPlacement } from "../game-objects/ThiefPlacement";
 import { CiabattaPlacement } from "../game-objects/CiabattaPlacement";
 import { RabbitPlacement } from "@/game-objects/RabbitPlacement";
 import { PrincessPlacement } from "@/game-objects/PrincessPlacement";
-
+import { BoardPlacement } from "@/game-objects/BoardPlacement";
 // types
 import { LevelSchema, PlacementSchema } from "@/helpers/types";
 import { WaterPickupPlacement } from "@/game-objects/WaterPickupPlacement";
+
 
 const placementTypeClassMap = {
   [PLACEMENT_TYPE_HERO]: HeroPlacement,
@@ -78,6 +80,7 @@ const placementTypeClassMap = {
   [PLACEMENT_TYPE_TELEPORT]: TeleportPlacement,
   [PLACEMENT_TYPE_THIEF]: ThiefPlacement,
   [PLACEMENT_TYPE_CIABATTA]: CiabattaPlacement,
+  [PLACEMENT_TYPE_BOARD]:BoardPlacement,
 };
 
 class PlacementFactory {

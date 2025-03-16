@@ -16,37 +16,38 @@ export default function Home() {
   const [spriteSheetImage, setSpriteSheetImage] = useRecoilState(spriteSheetImageAtom);
   const [textMessage, setTextMessage] = useState<string>("");
   const [displayedText, setDisplayedText] = useState<string>("");
-  const [gameStarted, setGameStarted] = useState<boolean | null>(null); // ✅ 初始值為 `null`
+  const [gameStarted, setGameStarted] = useState<boolean | null>(null);
   const [showQuestion, setShowQuestion] = useState<boolean>(false);
   const [questionId, setQuestionId] = useState<string | null>(null);
 
-  // ✅ 讀取 Cookie，判斷是否已經進入遊戲
   useEffect(() => {
     const hasVisited = Cookies.get("hasVisited");
-    if (hasVisited) {
-      setGameStarted(true); // ✅ 直接進入遊戲
-    } else {
-      setGameStarted(false); // ✅ 顯示 `homepage.tsx`
-    }
+    setGameStarted(hasVisited ? true : false);
   }, []);
 
-  // ✅ 設置 Cookie 並開始遊戲
   const handleGameStart = () => {
-    Cookies.set("hasVisited", "true", { expires: 7 }); // ✅ 7 天內不再顯示 `homepage.tsx`
+    Cookies.set("hasVisited", "true", { expires: 7 });
     setGameStarted(true);
   };
 
   useEffect(() => {
-    const spriteImage = new window.Image(); // ✅ 改名，避免與 next/image 衝突
+    const spriteImage = new window.Image();
     spriteImage.src = SPRITE_SHEET_SRC;
     spriteImage.onload = () => {
       setSpriteSheetImage(spriteImage);
     };
   }, [setSpriteSheetImage]);
 
+  // ✅ **新增縮放功能**
+  useEffect(() => {
+    document.body.style.transform = "scale(0.75)";
+    document.body.style.transformOrigin = "top left";
+    document.body.style.width = "133.33%"; // 避免畫面變小
+    document.body.style.height = "133.33%"; // 避免畫面變小
+  }, []);
+
   useEffect(() => {
     const handleShowQuestion = (event: CustomEvent) => {
-      console.log("收到 Question 事件，id:", event.detail.id);
       setQuestionId(event.detail.id);
       setShowQuestion(true);
     };
@@ -59,43 +60,41 @@ export default function Home() {
 
   useEffect(() => {
     let interval: NodeJS.Timeout | null = null;
-    let isKeyDown = false; // ✅ 防止長按 Enter
-    let isDialogueActive = false; // ✅ 防止同時多次觸發對話
-  
-    const handleNpcTalk = (event) => {
-      if (isDialogueActive) return; // ✅ 避免多次觸發
+    let isKeyDown = false;
+    let isDialogueActive = false;
+
+    const handleNpcTalk = (event: CustomEvent) => {
+      if (isDialogueActive) return;
       isDialogueActive = true;
-  
+
       const fullText = event.detail?.message || "......";
       setTextMessage(fullText);
-      setDisplayedText(""); // ✅ 確保對話內容從空白開始
-      console.log("對話開始: ", fullText);
-  
+      setDisplayedText("");
+
       let index = 0;
       let currentText = "";
-  
-      // ✅ 確保沒有其他 `interval` 在運行
+
       if (interval !== null) {
         clearInterval(interval);
       }
-  
+
       interval = setInterval(() => {
         currentText += fullText[index];
         setDisplayedText(currentText);
         index++;
-  
+
         if (index >= fullText.length) {
           if (interval !== null) {
             clearInterval(interval);
             interval = null;
           }
         }
-      }, 50); // ✅ 降低間隔，減少同時執行機率
-  
+      }, 50);
+
       const handleEnterKeyPress = (e: KeyboardEvent) => {
         if (e.code === "Enter" && !isKeyDown) {
           isKeyDown = true;
-  
+
           if (interval !== null) {
             clearInterval(interval);
             interval = null;
@@ -103,51 +102,47 @@ export default function Home() {
           } else {
             setDisplayedText("");
             setTextMessage("");
-            isDialogueActive = false; // ✅ 確保可以再次觸發
-            console.log("對話結束");
-  
+            isDialogueActive = false;
+
             document.dispatchEvent(new CustomEvent("NpcTalkClose"));
             document.removeEventListener("keydown", handleEnterKeyPress);
             document.removeEventListener("keyup", handleEnterKeyUp);
           }
         }
       };
-  
+
       const handleEnterKeyUp = (e: KeyboardEvent) => {
         if (e.code === "Enter") {
           isKeyDown = false;
         }
       };
-  
+
       document.addEventListener("keydown", handleEnterKeyPress);
       document.addEventListener("keyup", handleEnterKeyUp);
     };
-  
+
     const handleCloseNpcTalk = () => {
       if (interval !== null) {
         clearInterval(interval);
         interval = null;
       }
-      isDialogueActive = false; // ✅ 讓新的對話可以正常啟動
+      isDialogueActive = false;
       setDisplayedText("");
       setTextMessage("");
       document.dispatchEvent(new CustomEvent("NpcTalkClose"));
     };
-  
-    document.addEventListener("NpcTalk1", handleNpcTalk);
+
+    document.addEventListener("NpcTalk1", handleNpcTalk as EventListener);
     document.addEventListener("CloseNpcTalk", handleCloseNpcTalk);
-  
+
     return () => {
-      document.removeEventListener("NpcTalk1", handleNpcTalk);
+      document.removeEventListener("NpcTalk1", handleNpcTalk as EventListener);
       document.removeEventListener("CloseNpcTalk", handleCloseNpcTalk);
     };
   }, []);
-  
- 
-    
-  // ✅ **避免 `homepage.tsx` 被短暫渲染**
+
   if (gameStarted === null) {
-    return null; // ✅ **等待 cookie 檢查完畢**
+    return null;
   }
 
   if (!gameStarted) {
@@ -188,10 +183,10 @@ export default function Home() {
               position: "absolute",
               color: "#fff",
               fontFamily: "Cubic",
-              fontSize: "30px",
+              fontSize: "33px",
               textAlign: "left",
               padding: "20px",
-              maxWidth: "1000px",
+              maxWidth: "1250px",
               wordWrap: "break-word",
             }}
           >
@@ -203,8 +198,8 @@ export default function Home() {
               position: "absolute",
               bottom: "15px",
               right: "20px",
-              fontSize: "18px",
-              color: "rgba(255, 255, 255, 0.7)", // 半透明白色
+              fontSize: "20px",
+              color: "rgba(255, 255, 255, 0.7)",
               fontFamily: "Cubic",
             }}
           >

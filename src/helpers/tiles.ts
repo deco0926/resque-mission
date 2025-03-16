@@ -1,3 +1,5 @@
+import { HERO_RUN_1 } from "./consts";
+
 export const TILES = {
   // Basics
   SHADOW: "1x3",
@@ -77,6 +79,7 @@ export const TILES = {
 
   THIEF: "7x10",
   WARNING: "8x10",
+  BOARD: "9x10",
 
   //Particle Dusty explosion
   PARTICLE_1: "5x9",
@@ -99,6 +102,8 @@ export const TILES = {
   ENEMY_FLYING_RIGHT: "12x11",
   HERO_HOP_LEFT: "14x11",
   HERO_HOP_RIGHT: "16x11",
+  HERO_MOON_LEFT: "18x11",
+  HERO_MOON_RIGHT: "20x11",
 
   //Characters Row 2
   HERO_WATER_LEFT: "0x13",
@@ -141,4 +146,6 @@ export const TILES = {
   //Princess
   Princess1: "16x13",
   Princess2: "18x13",
+
+ 
 };

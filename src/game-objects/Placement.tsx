@@ -10,7 +10,7 @@ import {
 
 export class Placement {
   id: number;
-  type?: string;
+  type: string;
   x: number;
   y: number;
   level: LevelSchema;

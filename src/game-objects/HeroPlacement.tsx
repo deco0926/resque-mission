@@ -10,6 +10,7 @@ import { TILES } from "../helpers/tiles";
 import Body from "../components/object-graphics/Body";
 import { BodyPlacement } from "./BodyPlacement";
 import { dir } from "console";
+import next from "next";
 
 const heroSkinMap = {
   [BODY_SKINS.NORMAL]: [TILES.HERO_LEFT, TILES.HERO_RIGHT],
@@ -22,6 +23,7 @@ const heroSkinMap = {
   [HERO_RUN_1]: [TILES.HERO_RUN_1_LEFT, TILES.HERO_RUN_1_RIGHT],
   [HERO_RUN_2]: [TILES.HERO_RUN_2_LEFT, TILES.HERO_RUN_2_RIGHT],
   [BODY_SKINS.DEATH]: [TILES.HERO_DEATH_LEFT, TILES.HERO_DEATH_RIGHT],
+  [BODY_SKINS.MOON]: [TILES.HERO_MOON_LEFT,TILES.HERO_MOON_RIGHT],
 };
 
 export class HeroPlacement extends BodyPlacement {
@@ -30,18 +32,49 @@ export class HeroPlacement extends BodyPlacement {
     this.canCollectItems = true;
     this.canCompleteLevel = true;
     this.interactsWithGround = true;
+    this.getMoon = false;
   }
-
+  getHero () {
+    return { 
+      Moon: this.getMoon,
+      CompleteLevel : this.canCompleteLevel,
+    }
+  }
   controllerMoveRequested(direction) {
     // Attempt to start moving
     // 因為 controllerMoveRequested 是在每一 frame 呼叫的，所以避免重複呼叫需要下面的 return，
     // return; 的意思是指 不讓角色移動
+    let Xnumber = 0;
+    let Ynumber = 0;
+    console.log(direction)
+    if (direction === 'LEFT'){
+      Ynumber = 0;
+      Xnumber = -1;
+    } else if (direction === 'RIGHT'){
+      Ynumber = 0;
+      Xnumber = 1;
+    } else if (direction === 'DOWN'){
+      Xnumber = 0;
+      Ynumber = 1;
+    } else if (direction === 'UP'){
+      Xnumber = 0;
+      Ynumber = -1;
+    }
+    
     if (this.movingPixelsRemaining > 0) {
       return;
     }
-
+    if (this.getMoon === true) {
+      this.getMoon = false;
+    }
     // check for lock at next position
     const possibleLock = this.getLockAtNextPosition(direction);
+    const nextplacement = this.level.placements.find((p) => {
+      return p.x === this.x + Xnumber && p.y === this.y + Ynumber;
+    });
+    // console.log('x:',this.x +Xnumber)
+    // console.log('y:',this.y +Ynumber)
+    // console.log(nextplacement)
     if (possibleLock) {
       console.log("解鎖 : ", possibleLock);
       possibleLock.unlock();
@@ -50,6 +83,10 @@ export class HeroPlacement extends BodyPlacement {
     const possibleTalk = this.getNpcTalkPosition(direction);
     if(possibleTalk) {
       possibleTalk.NpcTalk();
+      if (nextplacement.MoonGet === false && nextplacement.MoonGet !== null) {
+        this.getMoon = true;
+        nextplacement.MoonGet = true;
+      }
       this.level.npctalk();
     }
     //Make sure the next space is available
@@ -81,6 +118,9 @@ export class HeroPlacement extends BodyPlacement {
     // If dead, show the dead skin
     if (this.level.deathOutcome) {
       return heroSkinMap[BODY_SKINS.DEATH][index];
+    }
+    if (this.getMoon === true) {
+      return heroSkinMap[BODY_SKINS.MOON][index];
     }
 
     //If is moving, use correct walking frame per direction

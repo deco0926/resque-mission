@@ -10,4 +10,7 @@ export class FirePickupPlacement extends Placement {
   renderComponent() {
     return <Sprite frameCoord={TILES.FIRE_PICKUP} />;
   }
+  zIndex() {
+    return 2;
+  }
 }
