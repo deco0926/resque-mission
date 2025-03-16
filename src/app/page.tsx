@@ -10,10 +10,12 @@ import HomePage from "./homepage";
 import Question from "@/components/hud/Question";
 import Image from "next/image"; // ✅ 用於 <Image /> 標籤
 import { DirectionControls } from "@/classes/DirectionControls";
-
+import { useRecoilValue } from "recoil";
+import { TitleAtom } from "@/atoms/TitleAtom";
 soundsManager.init();
 
 export default function Home() {
+  const [titlestate,settitlestate] = useRecoilState(TitleAtom);
   const [spriteSheetImage, setSpriteSheetImage] = useRecoilState(spriteSheetImageAtom);
   const [textMessage, setTextMessage] = useState<string>("");
   const [displayedText, setDisplayedText] = useState<string>("");
@@ -28,7 +30,9 @@ export default function Home() {
 
   const handleGameStart = () => {
     Cookies.set("hasVisited", "true", { expires: 7 });
+    settitlestate(false);
     setGameStarted(true);
+    setShowQuestion(false);
   };
 
   useEffect(() => {
@@ -126,6 +130,7 @@ export default function Home() {
       isDialogueActive = false;
       setDisplayedText("");
       setTextMessage("");
+      setShowQuestion(false);
       document.dispatchEvent(new CustomEvent("NpcTalkClose"));
     };
 
@@ -149,7 +154,9 @@ export default function Home() {
   if (!spriteSheetImage) {
     return null;
   }
-
+  if (titlestate === true) {
+    return <HomePage onGameStart={handleGameStart} />;
+  }
   return (
     <div style={{ position: "relative", width: "100%", height: "100%" }}>
       <RenderLevel />
