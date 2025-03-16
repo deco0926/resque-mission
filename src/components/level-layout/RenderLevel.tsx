@@ -13,6 +13,7 @@ import DeathMessage from "../hud/DeathMessage";
 import TopHud from "../hud/TopHud";
 import EndingPage from "@/app/EndingPage";
 import { endingAtom } from "@/atoms/endingAtom";
+import Image from "next/image";
 export default function RenderLevel() {
   const endingstate = useRecoilValue(endingAtom);
   const [level, setLevel] = useState<LevelSchema | null>(null);
@@ -51,7 +52,47 @@ export default function RenderLevel() {
         style={{
           background: THEME_BACKGROUNDS[level.theme],
         }}
-      >
+      > 
+        <p
+          style={{
+            position: "absolute",
+            fontFamily: "Cubic",
+            fontSize: "36px",
+            color: "black",
+            textAlign: "center",
+            top: "50%",
+            left: "20%",
+            transform: "translateX(-50%)",
+            whiteSpace: "norwap", // ✅ 讓 \n 換行生效
+          }}
+        ><span>
+          碰撞月兔即可觸發對話，並給予你月亮寶石
+          <Image
+            src="/moon.png" // ✅ 確保路徑正確
+            alt="月亮寶石"
+            width={36} // ✅ 設定寬度
+            height={36} // ✅ 設定高度
+            style={{
+              display: "inline-block",
+              verticalAlign: "middle", // ✅ 讓圖片和文字對齊
+              marginLeft: "5px", // ✅ 增加間距
+            }}
+          />
+          </span>
+          <br/>
+          收集到所有的月亮寶石並到終點
+          <Image
+            src="/moon2.png" // ✅ 確保路徑正確
+            alt="月亮寶石"
+            width={36} // ✅ 設定寬度
+            height={36} // ✅ 設定高度
+            style={{
+              display: "inline-block",
+              verticalAlign: "middle", // ✅ 讓圖片和文字對齊
+              marginLeft: "5px", // ✅ 增加間距
+            }}
+          />回答問題!
+        </p>
         <div className={styles.gameScreen}>
           <div
             style={{
@@ -63,7 +104,7 @@ export default function RenderLevel() {
             {/* 遊戲物體層 */}
             <LevelPlacementsLayer level={level} />
           </div>
-
+          
           {level.isCompleted && <LevelCompleteMessage />}
           {level.deathOutcome && <DeathMessage level={level} />}
         </div>

@@ -24,7 +24,7 @@ import {
   PLACEMENT_TYPE_RABBIT,
 } from "../helpers/consts";
 const DemoLevel3 = {
-  theme: LEVEL_THEMES.BLUE,
+  theme: LEVEL_THEMES.GRAY,
   tilesWidth: 12,
   tilesHeight: 12,
   placements: [

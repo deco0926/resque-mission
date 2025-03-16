@@ -25,7 +25,7 @@ export default function MapButton({ level }) {
       </div>
 
       {/* PixelNumber 不受點擊影響 */}
-      <PixelNumber number={parseInt(nowlevel, 10) - 1} />
+      {/* <PixelNumber number={parseInt(nowlevel, 10) - 1} /> */}
     </div>
   );
 }

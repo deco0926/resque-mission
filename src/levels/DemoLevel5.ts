@@ -25,7 +25,7 @@ import {
   PLACEMENT_TYPE_PRINCESS,
 } from "../helpers/consts";
 const DemoLevel5 = {
-  theme: LEVEL_THEMES.BLUE,
+  theme: LEVEL_THEMES.GRAY,
   tilesWidth: 19,
   tilesHeight: 9,
   placements: [
