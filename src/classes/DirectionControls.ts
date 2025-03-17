@@ -10,6 +10,8 @@ export class DirectionControls {
   heldDirections: any;
   directionKeyDownHandler: any;
   directionKeyUpHandler: any;
+  windowBlurHandler: any;
+
   constructor() {
     this.directionKeys = {
       ArrowDown: DIRECTION_DOWN,
@@ -26,11 +28,8 @@ export class DirectionControls {
 
     this.directionKeyDownHandler = (e) => {
       const dir = this.directionKeys[e.key];
-      // if 按下按鈕且陣列中沒有按下的鍵
       if (dir && this.heldDirections.indexOf(dir) === -1) {
-        // 將該鍵從加入到陣列最前面
         this.heldDirections.unshift(dir);
-        // console.log(this.heldDirections);
       }
     };
 
@@ -38,15 +37,19 @@ export class DirectionControls {
       const dir = this.directionKeys[e.key];
       const index = this.heldDirections.indexOf(dir);
       if (index > -1) {
-        // 將該鍵從陣列移除
         this.heldDirections.splice(index, 1);
-        // console.log(this.heldDirections);
       }
     };
 
-    // bind function to listener
+    // **新增 window blur 事件處理**
+    this.windowBlurHandler = () => {
+      this.heldDirections = []; // 清除所有方向鍵，防止卡住
+    };
+
+    // 綁定事件監聽器
     document.addEventListener("keydown", this.directionKeyDownHandler);
     document.addEventListener("keyup", this.directionKeyUpHandler);
+    window.addEventListener("blur", this.windowBlurHandler);
   }
 
   get direction() {
@@ -56,5 +59,6 @@ export class DirectionControls {
   unbind() {
     document.removeEventListener("keydown", this.directionKeyDownHandler);
     document.removeEventListener("keyup", this.directionKeyUpHandler);
+    window.removeEventListener("blur", this.windowBlurHandler); // 移除 blur 事件
   }
 }

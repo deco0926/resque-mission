@@ -171,16 +171,16 @@ export class CiabattaPlacement extends GroundEnemyPlacement {
           x: this.level.heroRef.x,
           y: this.level.heroRef.y + 2,
         },
-        {
-          type: PLACEMENT_TYPE_ROAMING_ENEMY,
-          x: this.level.heroRef.x + 2,
-          y: this.level.heroRef.y,
-        },
-        {
-          type: PLACEMENT_TYPE_ROAMING_ENEMY,
-          x: this.level.heroRef.x - 2,
-          y: this.level.heroRef.y,
-        },
+        // {
+        //   type: PLACEMENT_TYPE_ROAMING_ENEMY,
+        //   x: this.level.heroRef.x + 2,
+        //   y: this.level.heroRef.y,
+        // },
+        // {
+        //   type: PLACEMENT_TYPE_ROAMING_ENEMY,
+        //   x: this.level.heroRef.x - 2,
+        //   y: this.level.heroRef.y,
+        // },
       ]
         .filter((p) => {
           // Remove placements that are out of bounds

@@ -212,7 +212,7 @@ export class LevelState {
     // ✅ 等待 1 Tick（16.67 毫秒）後才停止遊戲循環
     setTimeout(() => {
         this.gameLoop.stop();
-    }, 30);
+    }, 100);
   }
 
 
