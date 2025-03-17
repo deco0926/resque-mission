@@ -9,15 +9,16 @@ export default function Question({ id, onClose }: { id: string; onClose: () => v
     correctAnswer: "",
   });
 
-  const [selectedOption, setSelectedOption] = useState(0); // 當前選擇的選項 (0 = A, 1 = B, 2 = C, 3 = D)
+  const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const optionKeys = ["A", "B", "C", "D"];
 
   useEffect(() => {
     let questionData;
-    
+
+    // 題庫
     const questionPools: Record<string, { question: string; options: string[]; correctAnswer: string }[]> = {
       DemoLevel1: [
-        { question: "請問你最忠心的夥伴是誰?", options: ["月兔", "雉雞", "小白狗", "小猴子"], correctAnswer: "A" }
+        { question: "請問你最忠心的夥伴是誰?", options: ["月兔", "雉雞", "小白狗", "小猴子"], correctAnswer: "A" },
       ],
       DemoLevel2: [
         { question: "月亮的表面有很多坑洞，這些坑洞主要是什麼造成的？", options: ["火山爆發", "隕石撞擊", "地震", "風的侵蝕"], correctAnswer: "B" },
@@ -28,7 +29,6 @@ export default function Question({ id, onClose }: { id: string; onClose: () => v
       DemoLevel3: [
         { question: "月亮的高度角是什麼？", options: ["月亮的亮度", "月亮與地平線的角度", "月亮的溫度", "月亮的直徑"], correctAnswer: "B" },
         { question: "高度角是用什麼單位來表示的？", options: ["公分", "度", "公里", "秒"], correctAnswer: "B" },
-        { question: "一天中的什麼時間月亮的高度角最低？", options: ["晚上12點", "傍晚時分", "月亮剛升起時", "半夜過後"], correctAnswer: "C" },
       ],
       DemoLevel4: [
         { question: "製作高度角量角器時需要什麼材料？", options: ["紙板、量角器、繩子和吸管", "木材、膠水和沙子", "電腦和軟體", "石頭和塑膠管"], correctAnswer: "A" },
@@ -41,24 +41,28 @@ export default function Question({ id, onClose }: { id: string; onClose: () => v
       ],
       DemoLevel7: [
         { question: "為什麼月亮的形狀每天都不一樣？", options: ["月亮轉動太快", "地球和月亮的位置改變", "月亮自己變形", "天空的雲太多"], correctAnswer: "B" },
-      ]
+      ],
     };
 
     if (questionPools[id]) {
       const questions = questionPools[id];
       questionData = questions[Math.floor(Math.random() * questions.length)];
-    }
+      setSelectedQuestion(questionData);
 
-    setSelectedQuestion(questionData);
-    setSelectedOption(0); // 預設選擇 A
+      // **確保 selectedOption 初始化正確**
+      const correctIndex = optionKeys.indexOf(questionData.correctAnswer);
+      setSelectedOption(correctIndex !== -1 ? correctIndex : 0);
+    }
   }, [id]);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
+      if (selectedOption === null) return;
+
       if (event.key === "ArrowLeft") {
-        setSelectedOption((prev) => (prev === 0 ? 3 : prev - 1)); // 左鍵循環回 D
+        setSelectedOption((prev) => (prev === 0 ? 3 : prev! - 1));
       } else if (event.key === "ArrowRight") {
-        setSelectedOption((prev) => (prev === 3 ? 0 : prev + 1)); // 右鍵循環回 A
+        setSelectedOption((prev) => (prev === 3 ? 0 : prev! + 1));
       } else if (event.key === "Enter") {
         handleAnswer(optionKeys[selectedOption]);
       }

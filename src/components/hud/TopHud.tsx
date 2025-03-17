@@ -10,12 +10,13 @@ export default function TopHud({ level }) {
   return (
     <div className={styles.topHud}>
       <div className={styles.topHudLeft}>
-        <MapButton level ={level} />
+        
         <FlourCount level={level} />
         <ClockCount level={level} />      
         <InventoryList level={level} />
       </div>
       <div className={styles.topHudRight}>
+        <MapButton level ={level} />
         <ResetButton level={level} />
         {/*<span>Come back to me</span>*/}
         {/* <EditorDropdown level={level} /> */}

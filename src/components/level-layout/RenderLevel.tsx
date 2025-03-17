@@ -59,8 +59,8 @@ export default function RenderLevel() {
             fontFamily: "Cubic",
             fontSize: "36px",
             color: "black",
-            textAlign: "center",
-            top: "50%",
+            textAlign: "left",
+            top: "40%",
             left: "20%",
             transform: "translateX(-50%)",
             whiteSpace: "norwap", // ✅ 讓 \n 換行生效
@@ -91,7 +91,33 @@ export default function RenderLevel() {
               verticalAlign: "middle", // ✅ 讓圖片和文字對齊
               marginLeft: "5px", // ✅ 增加間距
             }}
-          />回答問題!
+          />回答問題!<br/>
+          使用方向鍵選擇選項並按下Enter即可回答問題~<br/>
+          若卡關了按下
+          <Image
+          src="/reset.png" // ✅ 確保路徑正確
+          alt="月亮寶石"
+          width={36} // ✅ 設定寬度
+          height={36} // ✅ 設定高度
+          style={{
+            display: "inline-block",
+            verticalAlign: "middle", // ✅ 讓圖片和文字對齊
+            marginLeft: "5px", // ✅ 增加間距
+          }}
+        />此按鈕會重製關卡喔~<br/>
+        想重新觀看開頭劇情可以按
+        <Image
+          src="/map.png" // ✅ 確保路徑正確
+          alt="月亮寶石"
+          width={36} // ✅ 設定寬度
+          height={36} // ✅ 設定高度
+          style={{
+            display: "inline-block",
+            verticalAlign: "middle", // ✅ 讓圖片和文字對齊
+            marginLeft: "5px", // ✅ 增加間距
+          }}
+        />
+        此按鈕
         </p>
         <div className={styles.gameScreen}>
           <div
