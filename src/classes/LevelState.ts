@@ -220,7 +220,10 @@ export class LevelState {
     this.gameLoop.stop(); // ✅ 停止遊戲循環
 
     const handleNpcTalkClose = () => {
-        this.gameLoop.start(); // ✅ 重新啟動遊戲循環
+        setTimeout(() => {
+          this.gameLoop.start();
+        }, 120);
+        // this.gameLoop.start(); // ✅ 重新啟動遊戲循環
         document.removeEventListener("NpcTalkClose", handleNpcTalkClose); // 避免事件重複觸發
     };
 

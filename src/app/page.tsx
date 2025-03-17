@@ -130,7 +130,6 @@ export default function Home() {
       isDialogueActive = false;
       setDisplayedText("");
       setTextMessage("");
-      setShowQuestion(false);
       document.dispatchEvent(new CustomEvent("NpcTalkClose"));
     };
 
