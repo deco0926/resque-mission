@@ -7,11 +7,13 @@ export class RabbitPlacement extends Placement {
     Talking: any;
     alreadyTalk: any;
     MoonGet : any;
+    point: any;
     constructor(properties, level) {
         super(properties, level);
         this.Talking = properties.Talking ?? "Hi";
         this.alreadyTalk = properties.alreadyTalk ?? false ;
         this.MoonGet = properties.MoonGet ?? false ;
+        this.point = properties.point ?? "Hi";
       }
     canbeTalked() {
         return true;
@@ -24,13 +26,16 @@ export class RabbitPlacement extends Placement {
         return <Body frameCoord={rabbitFrame} yTranslate={0} showShadow={true} />;
     }
     NpcTalk() {
-        this.alreadyTalk = true ;
+        this.alreadyTalk = true;
         const event = new CustomEvent("NpcTalk1", {
-            detail: { message: this.Talking } // ✅ 傳遞 Talking 內容
+            detail: { 
+                message: this.Talking, // ✅ 傳遞對話內容
+                point: this.point      // ✅ 傳遞 point 屬性
+            }
         });
         document.dispatchEvent(event);
-        console.log("NpcTalk1 事件已觸發，對話內容：", this.Talking); // ✅ Debug 訊息
-    }
+        console.log("NpcTalk1 事件已觸發，對話內容：", this.Talking, "重點：", this.point); // ✅ Debug 訊息
+    }    
     zIndex() {
         return 2;
     }

@@ -9,13 +9,13 @@ export default function Question({ id, onClose }: { id: string; onClose: () => v
     correctAnswer: "",
   });
 
-  const [selectedOption, setSelectedOption] = useState<number | null>(null);
+  const [selectedOption, setSelectedOption] = useState<number | null>(null); // ✅ 初始為 null，避免誤判
   const optionKeys = ["A", "B", "C", "D"];
 
   useEffect(() => {
     let questionData;
 
-    // 題庫
+    // ✅ 完整題庫
     const questionPools: Record<string, { question: string; options: string[]; correctAnswer: string }[]> = {
       DemoLevel1: [
         { question: "請問你最忠心的夥伴是誰?", options: ["月兔", "雉雞", "小白狗", "小猴子"], correctAnswer: "A" },
@@ -29,6 +29,7 @@ export default function Question({ id, onClose }: { id: string; onClose: () => v
       DemoLevel3: [
         { question: "月亮的高度角是什麼？", options: ["月亮的亮度", "月亮與地平線的角度", "月亮的溫度", "月亮的直徑"], correctAnswer: "B" },
         { question: "高度角是用什麼單位來表示的？", options: ["公分", "度", "公里", "秒"], correctAnswer: "B" },
+        { question: "一天中的什麼時間月亮的高度角最低？", options: ["晚上12點", "傍晚時分", "月亮剛升起時", "半夜過後"], correctAnswer: "C" },
       ],
       DemoLevel4: [
         { question: "製作高度角量角器時需要什麼材料？", options: ["紙板、量角器、繩子和吸管", "木材、膠水和沙子", "電腦和軟體", "石頭和塑膠管"], correctAnswer: "A" },
@@ -48,23 +49,28 @@ export default function Question({ id, onClose }: { id: string; onClose: () => v
       const questions = questionPools[id];
       questionData = questions[Math.floor(Math.random() * questions.length)];
       setSelectedQuestion(questionData);
-
-      // **確保 selectedOption 初始化正確**
-      const correctIndex = optionKeys.indexOf(questionData.correctAnswer);
-      setSelectedOption(correctIndex !== -1 ? correctIndex : 0);
     }
   }, [id]);
+
+  // ✅ 確保選項初始化後才設 `selectedOption = 0`
+  useEffect(() => {
+    if (selectedQuestion.question !== "") {
+      setSelectedOption(0);
+    }
+  }, [selectedQuestion]);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (selectedOption === null) return;
 
       if (event.key === "ArrowLeft") {
-        setSelectedOption((prev) => (prev === 0 ? 3 : prev! - 1));
+        setSelectedOption((prev) => (prev === 0 ? 3 : prev - 1)); // ✅ 往左循環
       } else if (event.key === "ArrowRight") {
-        setSelectedOption((prev) => (prev === 3 ? 0 : prev! + 1));
+        setSelectedOption((prev) => (prev === 3 ? 0 : prev + 1)); // ✅ 往右循環
       } else if (event.key === "Enter") {
-        handleAnswer(optionKeys[selectedOption]);
+        if (selectedOption !== null) {
+          handleAnswer(optionKeys[selectedOption]);
+        }
       }
     };
 
@@ -72,9 +78,10 @@ export default function Question({ id, onClose }: { id: string; onClose: () => v
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [selectedOption]);
+  }, [selectedOption, selectedQuestion]);
 
   const handleAnswer = (answer: string) => {
+    if (!selectedQuestion.correctAnswer) return; // ✅ 避免未載入時回答錯誤
     if (answer === selectedQuestion.correctAnswer) {
       document.dispatchEvent(new CustomEvent("Answeright", { detail: { id } }));
     } else {

@@ -192,10 +192,10 @@ const DemoLevel7 = {
     { x: 4, y: 4, type: PLACEMENT_TYPE_CONVEYOR,direction:'LEFT' },
     { x: 10, y: 4, type: PLACEMENT_TYPE_CONVEYOR,direction:'RIGHT' },
 
-    { x: 2, y: 8, type: PLACEMENT_TYPE_RABBIT,Talking:"月亮的形狀每天不一樣，是因為「地球和月亮的位置改變」哦！這樣就會讓我們看到月亮不同的部分，變成新月、盈月、滿月等不同的形狀啦！"},
-    { x: 2, y: 12, type: PLACEMENT_TYPE_RABBIT,Talking:"當月亮在地球和太陽之間時，我們看到的是「新月」！這時候月亮完全看不見，因為它的亮面朝向太陽，而我們只能看到它的陰影部分哦！"},
-    { x: 12, y: 8, type: PLACEMENT_TYPE_RABBIT,Talking:"月亮的盈虧變化大約是每個「月」就會重複一次，也就是「每月」哦！月亮大約需要29.5天完成一次循環，變化從新月到滿月，再回到新月！"},
-    { x: 12, y: 12, type: PLACEMENT_TYPE_RABBIT,Talking:"月亮每天比前一天晚升起，是因為「月亮持續在公轉」！月亮圍著地球轉，所以它每天升起的時間會比前一天晚大約50分鐘呢！"},
+    { x: 2, y: 8, type: PLACEMENT_TYPE_RABBIT,Talking:"月亮的形狀每天不一樣，是因為「地球和月亮的位置改變」哦！這樣就會讓我們看到月亮不同的部分，變成新月、盈月、滿月等不同的形狀啦！",point:'地球和月亮的位置改變'},
+    { x: 2, y: 12, type: PLACEMENT_TYPE_RABBIT,Talking:"當月亮在地球和太陽之間時，我們看到的是「新月」！這時候月亮完全看不見，因為它的亮面朝向太陽，而我們只能看到它的陰影部分哦！",point:'月亮在地球和太陽之間時，我們看到的是「新月」'},
+    { x: 12, y: 8, type: PLACEMENT_TYPE_RABBIT,Talking:"月亮的盈虧變化大約是每個「月」就會重複一次，也就是「每月」哦！月亮大約需要29.5天完成一次循環，變化從新月到滿月，再回到新月！",point:'每個「月」'},
+    { x: 12, y: 12, type: PLACEMENT_TYPE_RABBIT,Talking:"月亮每天比前一天晚升起，是因為「月亮持續在公轉」！月亮圍著地球轉，所以它每天升起的時間會比前一天晚大約50分鐘呢！",point:'月亮持續在公轉'},
 
 
 

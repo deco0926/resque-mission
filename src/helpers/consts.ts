@@ -40,6 +40,7 @@ export const DIRECTION_DOWN = "DOWN";
 
 export const DEATH_TYPE_CLOCK = "CLOCK";
 export const PLACEMENT_TYPE_BOARD = "BOARD";
+export const PLACEMENT_TYPE_WARNING = "WARNING"
 
 type DirectionUpdateMapType = {
   [key: string]: { x: number; y: number };

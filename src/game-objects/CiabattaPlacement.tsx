@@ -1,7 +1,8 @@
 import { TILES } from "@/helpers/tiles";
 import { GroundEnemyPlacement } from "./GroundEnemyPlacement";
 import CiabattaBody from "@/components/object-graphics/CiabattaBody";
-import { CELL_SIZE, PLACEMENT_TYPE_ROAMING_ENEMY } from "@/helpers/consts";
+import { CELL_SIZE, PLACEMENT_TYPE_ROAMING_ENEMY,PLACEMENT_TYPE_WARNING } from "@/helpers/consts";
+
 
 const ATTACKS = {
   TACKLE: "TACKLE",
@@ -19,6 +20,11 @@ export class CiabattaPlacement extends GroundEnemyPlacement {
   painFramesRemaining: any;
   currentAttack: any;
   deathFramesUntilDisappear: any;
+  teleportX: any;
+  teleportY: any;
+  teleport: any;
+  summonhappyX: any;
+  summonhappyY: any;
   constructor(properties, level) {
     super(properties, level);
     this.tickBetweenMovesInterval = 40; // 每一步之間經過的 frame 數
@@ -32,6 +38,11 @@ export class CiabattaPlacement extends GroundEnemyPlacement {
 
     this.currentAttack = null;
     this.deathFramesUntilDisappear = 0;
+    this.teleportX = 1;
+    this.teleportY = 1;
+    this.teleport = false;
+    this.summonhappyX = 1;
+    this.summonhappyY = 1;
   }
 
   tickAttemptAiMove() {
@@ -108,7 +119,7 @@ export class CiabattaPlacement extends GroundEnemyPlacement {
     if (next === ATTACKS.TACKLE) {
       this.currentAttack = {
         type: ATTACKS.TACKLE,
-        framesRemaining: 120, // 這個攻擊的持續時間
+        framesRemaining: 150, // 這個攻擊的持續時間
         returnToY: this.y,
       };
     }
@@ -140,47 +151,107 @@ export class CiabattaPlacement extends GroundEnemyPlacement {
   // 捕捉攻擊
   handleTackleAttackFrame() {
     const { framesRemaining, returnToY } = this.currentAttack;
-    // Teleport to above hero's position 瞬移到主角上方一格(警告意味)
-    if (framesRemaining === 119) {
-      this.x = this.level.heroRef.x;
-      this.y = this.level.heroRef.y - 1;
-      if (this.y < 1) {
-        this.y = 1;
+    this.teleport = true;
+    // 在魔王順移前一幀生出警告標示
+    if (framesRemaining === 149) { // 提前一幀生出警告
+      // 設定警告位置
+      this.teleportX = this.level.heroRef.x;
+      this.teleportY = this.level.heroRef.y - 1;
+      if (this.teleportY < 1) {
+        this.teleportY = 1;
       }
+      this.level.addPlacement({
+        type: PLACEMENT_TYPE_WARNING,
+        x: this.teleportX,
+        y: this.teleportY, // 預計移動到的位置
+      });
+      
     }
-
-    //  Lunge at the Hero 瞬移到主角上方一格後，往下一格抓主角
+    if(framesRemaining === 119) {
+      this.x = this.teleportX;
+      this.y = this.teleportY ;
+      this.level.placements.forEach((p) => {
+        if (p.type === PLACEMENT_TYPE_WARNING) {
+          this.level.deletePlacement(p);
+        }
+      });
+    }
+  
+    // 順移到主角上方一格
     if (framesRemaining === 90) {
       this.y = this.y + 1;
     }
-
-    // Return to previous row
+  
+    // 返回原位置
     if (framesRemaining === 50) {
       this.y = returnToY;
+      this.teleport = false;
+      // 當順移完成時移除警告
     }
   }
+  
+  
 
   // 召喚小丑攻擊
   handleSpawnAttackFrame() {
     const { framesRemaining } = this.currentAttack;
-    if (framesRemaining === 210) {
+    if(framesRemaining === 219) {
+      this.summonhappyX = this.level.heroRef.x;
+      this.summonhappyY = this.level.heroRef.y;
+      [
+        {
+          type: PLACEMENT_TYPE_WARNING,
+          x: this.summonhappyX,
+          y: this.summonhappyY + 2,
+        },
+        {
+          type: PLACEMENT_TYPE_WARNING,
+          x: this.summonhappyX + 2,
+          y: this.summonhappyY,
+        },
+        {
+          type: PLACEMENT_TYPE_WARNING,
+          x: this.summonhappyX - 2,
+          y: this.summonhappyY,
+        },
+      ]
+        .filter((p) => {
+          // Remove placements that are out of bounds
+          // 若製造出來的警告超出邊界範圍則排除掉
+          return (
+            p.x > 0 &&
+            p.x <= this.level.tilesWidth &&
+            p.y < this.level.tilesHeight 
+          );
+        })
+        .forEach((warningConfig) => {
+          // Add to level
+          this.level.addPlacement(warningConfig);
+        });
+    }
+    if (framesRemaining === 189) {
       // Configure three roaming enemies around the hero
+      this.level.placements.forEach((p) => {
+        if (p.type === PLACEMENT_TYPE_WARNING) {
+          this.level.deletePlacement(p);
+        }
+      });
       [
         {
           type: PLACEMENT_TYPE_ROAMING_ENEMY,
-          x: this.level.heroRef.x,
-          y: this.level.heroRef.y + 2,
+          x: this.summonhappyX,
+          y: this.summonhappyY + 2,
         },
-        // {
-        //   type: PLACEMENT_TYPE_ROAMING_ENEMY,
-        //   x: this.level.heroRef.x + 2,
-        //   y: this.level.heroRef.y,
-        // },
-        // {
-        //   type: PLACEMENT_TYPE_ROAMING_ENEMY,
-        //   x: this.level.heroRef.x - 2,
-        //   y: this.level.heroRef.y,
-        // },
+        {
+          type: PLACEMENT_TYPE_ROAMING_ENEMY,
+          x: this.summonhappyX + 2,
+          y: this.summonhappyY,
+        },
+        {
+          type: PLACEMENT_TYPE_ROAMING_ENEMY,
+          x: this.summonhappyX - 2,
+          y: this.summonhappyY,
+        },
       ]
         .filter((p) => {
           // Remove placements that are out of bounds
@@ -188,7 +259,7 @@ export class CiabattaPlacement extends GroundEnemyPlacement {
           return (
             p.x > 0 &&
             p.x <= this.level.tilesWidth &&
-            p.y < this.level.tilesHeight
+            p.y < this.level.tilesHeight 
           );
         })
         .forEach((enemyConfig) => {
@@ -231,7 +302,7 @@ export class CiabattaPlacement extends GroundEnemyPlacement {
     }
 
     // 若是 捕捉攻擊則更改 skin(CIABATTA_TELEPORT)
-    if (this.currentAttack?.type === ATTACKS.TACKLE) {
+    if (this.currentAttack?.type === ATTACKS.TACKLE && this.teleport === true) {
       return TILES.CIABATTA_TELEPORT;
     }
 

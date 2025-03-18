@@ -43,10 +43,10 @@ const DemoLevel6= {
     { x: 10, y: 11, type: PLACEMENT_TYPE_LOCK,color:'GREEN' },
     { x: 10, y: 6, type: PLACEMENT_TYPE_KEY,color:'GREEN' },
 
-    { x: 10, y: 2, type: PLACEMENT_TYPE_RABBIT,Talking:"當月亮從細細的彎月慢慢變大，變成圓圓的滿月，這個過程叫做「盈月」哦！就像月亮在長大一樣，越來越亮呢！"},
-    { x: 13, y: 4, type: PLACEMENT_TYPE_RABBIT,Talking:"當月亮從圓圓的滿月變成細細的彎月，這個過程叫做「虧月」哦！月亮就像在慢慢變小，最後變成新月呢！"},
-    { x: 17, y: 13, type: PLACEMENT_TYPE_RABBIT,Talking:"月亮的變化順序是這樣的哦：「新月 → 上弦月 → 滿月 → 下弦月」！這是月亮循環的過程，從完全看不見到圓圓的，再到變小，最後又回到新月啦！"},
-    { x: 20, y: 12, type: PLACEMENT_TYPE_RABBIT,Talking:"月亮可不會出現三角形的形狀哦！月亮常見的形狀有圓形、半圓形和彎月形呢！"},
+    { x: 10, y: 2, type: PLACEMENT_TYPE_RABBIT,Talking:"當月亮從細細的彎月慢慢變大，變成圓圓的滿月，這個過程叫做「盈月」哦！就像月亮在長大一樣，越來越亮呢！",point:'盈月'},
+    { x: 13, y: 4, type: PLACEMENT_TYPE_RABBIT,Talking:"當月亮從圓圓的滿月變成細細的彎月，這個過程叫做「虧月」哦！月亮就像在慢慢變小，最後變成新月呢！",point:'虧月'},
+    { x: 17, y: 13, type: PLACEMENT_TYPE_RABBIT,Talking:"月亮的變化順序是這樣的哦：「新月 → 上弦月 → 滿月 → 下弦月」！這是月亮循環的過程，從完全看不見到圓圓的，再到變小，最後又回到新月啦！",point:'新月 → 上弦月 → 滿月 → 下弦月'},
+    { x: 20, y: 12, type: PLACEMENT_TYPE_RABBIT,Talking:"月亮可不會出現三角形的形狀哦！月亮常見的形狀有圓形、半圓形和彎月形呢！",point:'不會出現三角形'},
 
     { x: 1, y: 4, type:PLACEMENT_TYPE_WALL},
     { x: 1, y: 8, type:PLACEMENT_TYPE_WALL},

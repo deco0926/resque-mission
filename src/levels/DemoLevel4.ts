@@ -34,10 +34,10 @@ const DemoLevel4 = {
     { x: 11, y: 2, type: PLACEMENT_TYPE_LOCK },
     { x: 6, y: 5, type: PLACEMENT_TYPE_KEY },
 
-    { x: 2, y: 4, type: PLACEMENT_TYPE_RABBIT,Talking:"要做一個簡單的高度角量角器，只需要紙板、量角器、繩子和吸管哦！用這些材料就能測量月亮的高度角，超有趣的呢！"},
-    { x: 5, y: 2, type: PLACEMENT_TYPE_RABBIT,Talking:"當你用高度角量角器時，記得要對準月亮哦！這樣才能測出月亮離地平線的角度，看看它現在在哪裡哦！"},
-    { x: 10, y: 12, type: PLACEMENT_TYPE_RABBIT,Talking:"當高度角量角器上的繩子指向90度時，代表月亮就在你的頭頂正上方哦！這就是「天頂」的位置，超級高的呢！"},
-    { x: 11, y: 1, type: PLACEMENT_TYPE_RABBIT,Talking:"要測量月亮的高度角，最方便的就是用「高度角量角器」啦！只要對準月亮，看看繩子指向幾度，就能知道它離地平線有多高哦！"},
+    { x: 2, y: 4, type: PLACEMENT_TYPE_RABBIT,Talking:"要做一個簡單的高度角量角器，只需要紙板、量角器、繩子和吸管哦！用這些材料就能測量月亮的高度角，超有趣的呢！",point:'紙板、量角器、繩子和吸管'},
+    { x: 5, y: 2, type: PLACEMENT_TYPE_RABBIT,Talking:"當你用高度角量角器時，記得要對準月亮哦！這樣才能測出月亮離地平線的角度，看看它現在在哪裡哦！",point:'對準月亮'},
+    { x: 10, y: 12, type: PLACEMENT_TYPE_RABBIT,Talking:"當高度角量角器上的繩子指向90度時，代表月亮就在你的頭頂正上方哦！這就是「天頂」的位置，超級高的呢！",point:'90度時，代表月亮就在你的頭頂正上方'},
+    { x: 11, y: 1, type: PLACEMENT_TYPE_RABBIT,Talking:"要測量月亮的高度角，最方便的就是用「高度角量角器」啦！只要對準月亮，看看繩子指向幾度，就能知道它離地平線有多高哦！",point:'高度角量角器'},
 
     { x: 3, y: 13, type:PLACEMENT_TYPE_WALL},
     { x: 4, y: 6, type:PLACEMENT_TYPE_WALL},

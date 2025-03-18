@@ -122,10 +122,10 @@ const DemoLevel3 = {
 
     { x: 6, y: 8, type: PLACEMENT_TYPE_WATER_PICKUP },
 
-    { x: 9, y: 6, type: PLACEMENT_TYPE_RABBIT,Talking:"你知道月亮的高度角嗎？就是月亮跟地平線之間的角度！"},
-    { x: 6, y: 11, type: PLACEMENT_TYPE_RABBIT,Talking:"高度角0度的時候，月亮剛好就在地平線上哦！這時候就是月亮剛升起或快要落下的時候，記得抬頭看看喔！"},
-    { x: 6, y: 6, type: PLACEMENT_TYPE_RABBIT,Talking:"你知道嗎？用拳頭來測量天空的高度角，一個拳頭大約是10度哦！這樣就能大概估算月亮離地平線有多高啦！"},
-    { x: 11, y: 2, type: PLACEMENT_TYPE_RABBIT,Talking:"高度角是用「度」來表示的哦！就像圓有360度一樣，天空的角度也是這樣測量的！"},
+    { x: 9, y: 6, type: PLACEMENT_TYPE_RABBIT,Talking:"你知道月亮的高度角嗎？就是月亮跟地平線之間的角度！",point:'月亮跟地平線之間的角度'},
+    { x: 6, y: 11, type: PLACEMENT_TYPE_RABBIT,Talking:"高度角0度的時候，月亮剛好就在地平線上哦！這時候就是月亮剛升起或快要落下的時候，可以多觀察看看喔！",point:'0度的時候，月亮剛好就在地平線上哦'},
+    { x: 6, y: 6, type: PLACEMENT_TYPE_RABBIT,Talking:"你知道嗎？用拳頭來測量天空的高度角，一個拳頭大約是10度哦！這樣就能大概估算月亮離地平線有多高啦！",point:'一個拳頭大約是10度'},
+    { x: 11, y: 2, type: PLACEMENT_TYPE_RABBIT,Talking:"高度角是用「度」來表示的哦！就像圓有360度一樣，天空的角度也是這樣測量的！",point:'「度」'},
 
     { x: 3, y: 10, type: PLACEMENT_TYPE_KEY,color:'GREEN'},
     { x: 2, y: 6, type: PLACEMENT_TYPE_LOCK,color:'GREEN'},

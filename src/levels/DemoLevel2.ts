@@ -140,10 +140,10 @@ const DemoLevel2 = {
     { x: 10, y: 6, type: PLACEMENT_TYPE_THIEF },
     { x: 14, y: 8, type: PLACEMENT_TYPE_THIEF },
 
-    { x: 8, y: 4, type: PLACEMENT_TYPE_RABBIT,Talking:'你知道嗎？月亮的表面可不是軟綿綿的，而是滿滿的石頭和岩石哦！'},
-    { x: 8, y: 11, type: PLACEMENT_TYPE_RABBIT,Talking:'你知道月亮上那些大大小小的坑洞是怎麼形成的嗎？那些是隕石撞出來的哦！因為月亮沒有大氣層，隕石直接砸在表面，久而久之就變成現在這樣啦！'},
-    { x: 2, y: 11, type: PLACEMENT_TYPE_RABBIT,Talking:'嘿嘿，在月亮上跳起來感覺超輕飄飄的，因為月亮的重力只有地球的1/6！所以在那裡走路，就像是在慢動作跳舞一樣呢'},
-    { x: 14, y: 2, type: PLACEMENT_TYPE_RABBIT,Talking:'月亮其實不會自己發光哦！它就像一面大鏡子，把太陽的光反射回來，所以我們才能在夜晚看到亮亮的月亮！'},
+    { x: 8, y: 4, type: PLACEMENT_TYPE_RABBIT,Talking:'你知道嗎？月亮的表面可不是軟綿綿的，而是滿滿的石頭和岩石哦！',point:'石頭和岩石'},
+    { x: 8, y: 11, type: PLACEMENT_TYPE_RABBIT,Talking:'你知道月亮上那些大大小小的坑洞是怎麼形成的嗎？那些是隕石撞出來的哦！因為月亮沒有大氣層，隕石直接砸在表面，久而久之就變成現在這樣啦！',point:'隕石撞出來'},
+    { x: 2, y: 11, type: PLACEMENT_TYPE_RABBIT,Talking:'嘿嘿，在月亮上跳起來感覺超輕飄飄的，因為月亮的重力只有地球的1/6！所以在那裡走路，就像是在慢動作跳舞一樣呢',point:'月亮的重力只有地球的1/6'},
+    { x: 14, y: 2, type: PLACEMENT_TYPE_RABBIT,Talking:'月亮其實不會自己發光哦！它就像一面大鏡子，把太陽的光反射回來，所以我們才能在夜晚看到亮亮的月亮！',point:'把太陽的光反射回來'},
 
     { x: 4, y: 11, type: PLACEMENT_TYPE_SWITCH_DOOR,isRaised:false },
     { x: 6, y: 6, type: PLACEMENT_TYPE_SWITCH_DOOR,isRaised:true },

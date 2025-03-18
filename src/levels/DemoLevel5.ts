@@ -37,10 +37,10 @@ const DemoLevel5 = {
     { x: 3, y: 2, type: PLACEMENT_TYPE_LOCK,color:'GREEN' },
     { x: 8, y: 8, type: PLACEMENT_TYPE_KEY,color:'GREEN' },
 
-    { x: 1, y: 1, type: PLACEMENT_TYPE_RABBIT,Talking:"月亮在天空中的位置會變，是因為地球在自轉哦！就像太陽東升西落一樣，月亮的位置也會慢慢改變，都是地球轉動的結果呢！"},
-    { x: 7, y: 2, type: PLACEMENT_TYPE_RABBIT,Talking:"月亮跟太陽一樣，都是從東方升起，然後慢慢移動到天空，再從西方落下哦！"},
-    { x: 11, y: 9, type: PLACEMENT_TYPE_RABBIT,Talking:"當我們看到月亮又大又圓的時候，這叫做「滿月」哦！這時候的月亮最亮最美呢！"},
-    { x: 19, y: 9, type: PLACEMENT_TYPE_RABBIT,Talking:"當月亮變得像一條細細的弧線時，我們叫它「新月」哦！這時候的月亮特別害羞，只露出一點點光亮呢！"},
+    { x: 1, y: 1, type: PLACEMENT_TYPE_RABBIT,Talking:"月亮在天空中的位置會變，是因為地球在自轉哦！就像太陽東升西落一樣，月亮的位置也會慢慢改變，都是地球轉動的結果呢！",point:'地球在自轉'},
+    { x: 7, y: 2, type: PLACEMENT_TYPE_RABBIT,Talking:"月亮跟太陽一樣，都是從東方升起，然後慢慢移動到天空，再從西方落下哦！",point:'從東方升起'},
+    { x: 11, y: 9, type: PLACEMENT_TYPE_RABBIT,Talking:"當我們看到月亮又大又圓的時候，這叫做「滿月」哦！這時候的月亮最亮最美呢！",point:'滿月'},
+    { x: 19, y: 9, type: PLACEMENT_TYPE_RABBIT,Talking:"當月亮變得像一條細細的弧線時，我們叫它「新月」哦！這時候的月亮特別害羞，只露出一點點光亮呢！",point:'新月'},
 
     { x: 3, y: 1, type:PLACEMENT_TYPE_WALL},
     { x: 6, y: 5, type:PLACEMENT_TYPE_WALL},

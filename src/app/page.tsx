@@ -12,13 +12,15 @@ import Image from "next/image"; // ✅ 用於 <Image /> 標籤
 import { DirectionControls } from "@/classes/DirectionControls";
 import { useRecoilValue } from "recoil";
 import { TitleAtom } from "@/atoms/TitleAtom";
+
 soundsManager.init();
 
 export default function Home() {
-  const [titlestate,settitlestate] = useRecoilState(TitleAtom);
+  const [titlestate, settitlestate] = useRecoilState(TitleAtom);
   const [spriteSheetImage, setSpriteSheetImage] = useRecoilState(spriteSheetImageAtom);
   const [textMessage, setTextMessage] = useState<string>("");
   const [displayedText, setDisplayedText] = useState<string>("");
+  const [highlightWord, setHighlightWord] = useState<string>(""); // ✅ 儲存要標紅的關鍵字
   const [gameStarted, setGameStarted] = useState<boolean | null>(null);
   const [showQuestion, setShowQuestion] = useState<boolean>(false);
   const [questionId, setQuestionId] = useState<string | null>(null);
@@ -43,9 +45,6 @@ export default function Home() {
     };
   }, [setSpriteSheetImage]);
 
-  // ✅ **新增縮放功能**
-  
-
   useEffect(() => {
     const handleShowQuestion = (event: CustomEvent) => {
       setQuestionId(event.detail.id);
@@ -69,7 +68,9 @@ export default function Home() {
       isDialogueActive = true;
 
       const fullText = event.detail?.message || "......";
+      const keyword = event.detail?.point || ""; // ✅ 取得要標紅的關鍵字
       setTextMessage(fullText);
+      setHighlightWord(keyword);
       setDisplayedText("");
 
       let index = 0;
@@ -142,6 +143,17 @@ export default function Home() {
     };
   }, []);
 
+  // ✅ 讓 `highlightWord` 在 `displayedText` 內變成紅色
+  const highlightText = (text: string, keyword: string) => {
+    if (!keyword || !text.includes(keyword)) return text;
+    const parts = text.split(keyword);
+    return parts
+      .map((part, index) =>
+        index === parts.length - 1 ? part : part + `<span style="color: red">${keyword}</span>`
+      )
+      .join("");
+  };
+
   if (gameStarted === null) {
     return null;
   }
@@ -153,9 +165,11 @@ export default function Home() {
   if (!spriteSheetImage) {
     return null;
   }
+
   if (titlestate === true) {
     return <HomePage onGameStart={handleGameStart} />;
   }
+
   return (
     <div style={{ position: "relative", width: "100%", height: "100%" }}>
       <RenderLevel />
@@ -192,9 +206,9 @@ export default function Home() {
               maxWidth: "1250px",
               wordWrap: "break-word",
             }}
-          >
-            {displayedText}
-          </div>
+            dangerouslySetInnerHTML={{ __html: highlightText(displayedText, highlightWord) }} // ✅ 標紅關鍵字
+          ></div>
+
           {/* ✅ 右下角提示文字 */}
           <p
             style={{
