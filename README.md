@@ -11,6 +11,7 @@ As part of my university final project, I took over the game and made several im
 **Rescue-Mission** is a 2D browser-based adventure game where players take on the role of **Hou Yi (后羿)**, a mythical hero, as he embarks on a quest to rescue Chang’e (嫦娥). Players will explore various maps, interact with characters, and answer quiz questions to progress through the story.
 
 The game combines simple action gameplay with knowledge-based challenges, designed specifically for **elementary school students** to learn while playing.
+
 ---
 
 ## ✨ Key Features
