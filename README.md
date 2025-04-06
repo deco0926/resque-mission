@@ -64,7 +64,7 @@ The game combines simple action gameplay with knowledge-based challenges, design
 
   or
 
-  **pnpm dev|**
+  **pnpm dev**
 
   or
 
