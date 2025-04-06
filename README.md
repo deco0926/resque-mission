@@ -1,5 +1,7 @@
 # Resque-Mission
 
+🚀 **Play the game here**: [https://resque-mission-fd32.vercel.app/](https://resque-mission-fd32.vercel.app/)
+
 This project is a continuation and enhancement of the original [Cube Revenge Game](https://github.com/cuboid0223/Cube_Revenge_Game) created by my senior. The original version served as a solid foundation for web-based 2D game development using HTML5 and JavaScript.
 
 As part of my university final project, I took over the game and made several improvements to the visual presentation, gameplay mechanics, and educational interaction.
