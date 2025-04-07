@@ -105,7 +105,7 @@ export class LevelState {
     this.camera.tick();
 
     // // Update the clock
-    // this.clock.tick();
+    this.clock.tick();
 
     //Emit any changes to React
     this.onEmit(this.getState());

@@ -142,6 +142,8 @@ export const TILES = {
   // Rabbit
   Rabbit1: "12x15",
   Rabbit2: "14x15",
+  Rabbit3: "16x15",
+  Rabbit4: "18x15",
 
   //Princess
   Princess1: "16x13",

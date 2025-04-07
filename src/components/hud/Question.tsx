@@ -2,20 +2,25 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 
+
+// ✅ 題目循環索引記錄器（記得不會跨頁保存）
+const questionIndexMap: Record<string, number> = {};
+
 export default function Question({ id, onClose }: { id: string; onClose: () => void }) {
+ 
+
   const [selectedQuestion, setSelectedQuestion] = useState({
     question: "",
     options: [],
     correctAnswer: "",
   });
 
-  const [selectedOption, setSelectedOption] = useState<number | null>(null); // ✅ 初始為 null，避免誤判
+  const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const optionKeys = ["A", "B", "C", "D"];
 
   useEffect(() => {
     let questionData;
 
-    // ✅ 完整題庫
     const questionPools: Record<string, { question: string; options: string[]; correctAnswer: string }[]> = {
       DemoLevel1: [
         { question: "請問你最忠心的夥伴是誰?", options: ["月兔", "雉雞", "小白狗", "小猴子"], correctAnswer: "A" },
@@ -47,12 +52,39 @@ export default function Question({ id, onClose }: { id: string; onClose: () => v
 
     if (questionPools[id]) {
       const questions = questionPools[id];
-      questionData = questions[Math.floor(Math.random() * questions.length)];
-      setSelectedQuestion(questionData);
-    }
+    
+      if (!questionIndexMap.hasOwnProperty(id)) {
+        questionIndexMap[id] = 0;
+      }
+    
+      const currentIndex = Math.floor(questionIndexMap[id]);
+      const original = questions[currentIndex];
+    
+      questionIndexMap[id] = (questionIndexMap[id] + 0.5) % questions.length;
+    
+      // ✅ 原始正確答案內容
+      const originalCorrectText = original.options[["A", "B", "C", "D"].indexOf(original.correctAnswer)];
+    
+      // ✅ 打亂選項 (Fisher-Yates 洗牌)
+      const shuffledOptions = [...original.options];
+      for (let i = shuffledOptions.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffledOptions[i], shuffledOptions[j]] = [shuffledOptions[j], shuffledOptions[i]];
+      }
+    
+      // ✅ 找出打亂後正確答案的新索引
+      const newCorrectIndex = shuffledOptions.indexOf(originalCorrectText);
+      const newCorrectAnswer = ["A", "B", "C", "D"][newCorrectIndex];
+    
+      // ✅ 更新選擇的題目
+      setSelectedQuestion({
+        question: original.question,
+        options: shuffledOptions,
+        correctAnswer: newCorrectAnswer,
+      });
+    }        
   }, [id]);
 
-  // ✅ 確保選項初始化後才設 `selectedOption = 0`
   useEffect(() => {
     if (selectedQuestion.question !== "") {
       setSelectedOption(0);
@@ -64,9 +96,9 @@ export default function Question({ id, onClose }: { id: string; onClose: () => v
       if (selectedOption === null) return;
 
       if (event.key === "ArrowLeft") {
-        setSelectedOption((prev) => (prev === 0 ? 3 : prev - 1)); // ✅ 往左循環
+        setSelectedOption((prev) => (prev === 0 ? 3 : prev - 1));
       } else if (event.key === "ArrowRight") {
-        setSelectedOption((prev) => (prev === 3 ? 0 : prev + 1)); // ✅ 往右循環
+        setSelectedOption((prev) => (prev === 3 ? 0 : prev + 1));
       } else if (event.key === "Enter") {
         if (selectedOption !== null) {
           handleAnswer(optionKeys[selectedOption]);
@@ -81,7 +113,7 @@ export default function Question({ id, onClose }: { id: string; onClose: () => v
   }, [selectedOption, selectedQuestion]);
 
   const handleAnswer = (answer: string) => {
-    if (!selectedQuestion.correctAnswer) return; // ✅ 避免未載入時回答錯誤
+    if (!selectedQuestion.correctAnswer) return;
     if (answer === selectedQuestion.correctAnswer) {
       document.dispatchEvent(new CustomEvent("Answeright", { detail: { id } }));
     } else {
@@ -104,9 +136,9 @@ export default function Question({ id, onClose }: { id: string; onClose: () => v
       }}
     >
       <div style={{ position: "relative", marginBottom: "20px" }}>
-        <Image src="/text-box.png" alt="問題框" width={1000} height={180} style={{ objectFit: "contain" }} />
+        <Image src="/text-box.png" alt="問題框" width={1000} height={200} style={{ objectFit: "contain" }} />
         <p style={{
-          position: "absolute", top: "50%", left: "45%", transform: "translate(-50%, -50%)",
+          position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)",
           fontSize: "33px", fontFamily: "Cubic", color: "white", textAlign: "center", whiteSpace: "nowrap"
         }}>
           {selectedQuestion.question}

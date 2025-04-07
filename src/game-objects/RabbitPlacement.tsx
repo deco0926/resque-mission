@@ -23,7 +23,13 @@ export class RabbitPlacement extends Placement {
     }
     renderComponent() {
         const rabbitFrame = this.level.animatedFrames.rabbitFrame;
-        return <Body frameCoord={rabbitFrame} yTranslate={0} showShadow={true} />;
+        const rabbitnomoonFrame = this.level.animatedFrames.rabbitnomoonFrame;
+
+        if (this.alreadyTalk === false){ 
+            return <Body frameCoord={rabbitFrame} yTranslate={0} showShadow={true} />;
+        } else {
+            return <Body frameCoord={rabbitnomoonFrame} yTranslate={0} showShadow={true} />;
+        }
     }
     NpcTalk() {
         this.alreadyTalk = true;

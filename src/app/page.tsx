@@ -26,6 +26,46 @@ export default function Home() {
   const [questionId, setQuestionId] = useState<string | null>(null);
 
   useEffect(() => {
+    const audio = new Audio("sfx/music.mp3");
+    audio.loop = true;
+    audio.volume = 0.2;
+  
+    const tryPlay = () => {
+      if (gameStarted && titlestate === false) {
+        audio.play().catch((e) => {
+          console.warn("音樂播放失敗：", e);
+        });
+      } else {
+        audio.pause();
+        audio.currentTime = 0;
+      }
+    };
+  
+    // ✅ 使用者互動後嘗試播放音樂
+    const handleUserInteraction = () => {
+      tryPlay();
+      window.removeEventListener("click", handleUserInteraction);
+      window.removeEventListener("keydown", handleUserInteraction);
+    };
+  
+    window.addEventListener("click", handleUserInteraction);
+    window.addEventListener("keydown", handleUserInteraction);
+  
+    // ✅ 監控 titlestate/gameStarted 變化時切換播放狀態
+    tryPlay();
+  
+    return () => {
+      audio.pause();
+      audio.currentTime = 0;
+      window.removeEventListener("click", handleUserInteraction);
+      window.removeEventListener("keydown", handleUserInteraction);
+    };
+  }, [gameStarted, titlestate]);
+  
+  
+  
+  
+  useEffect(() => {
     const hasVisited = Cookies.get("hasVisited");
     setGameStarted(hasVisited ? true : false);
   }, []);

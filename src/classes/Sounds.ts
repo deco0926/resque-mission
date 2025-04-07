@@ -19,7 +19,7 @@ export class Sounds {
   sfxVolume: any;
   constructor() {
     this.howls = {};
-    this.sfxVolume = 0.5;
+    this.sfxVolume = 1.0;
   }
 
   init() {
