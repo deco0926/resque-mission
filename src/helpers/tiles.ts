@@ -18,6 +18,7 @@ export const TILES = {
   MAP_BUTTON: "11x3",
   CLOCK: "12x3",
   SETTINGS: "13x3",
+  HEART: "14x3",
 
   // Locks and Keys
   BLUE_LOCK: "0x4",

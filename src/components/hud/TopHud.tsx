@@ -5,6 +5,7 @@ import InventoryList from "./InventoryList";
 // import EditorDropdown from "./EditorDropdown";
 import ResetButton from "./ResetButton";
 import MapButton from "./MapButton";
+import HeartCount from "./HeartCount";
 
 export default function TopHud({ level }) {
   return (
@@ -12,7 +13,8 @@ export default function TopHud({ level }) {
       <div className={styles.topHudLeft}>
         
         <FlourCount level={level} />
-        <ClockCount level={level} />      
+        <ClockCount level={level} />
+        <HeartCount level={level} />      
         <InventoryList level={level} />
       </div>
       <div className={styles.topHudRight}>

@@ -8,6 +8,7 @@ import { Inventory } from "./Inventory";
 import { LevelAnimatedFrames } from "./LevelAnimatedFrames";
 import { Camera } from "./Camera";
 import { Clock } from "./Clock";
+import { Heart } from "./Heart";
 type OnEmitType = (level: LevelSchema) => void;
 
 export class LevelState {
@@ -25,6 +26,7 @@ export class LevelState {
   heroRef: any;
   camera: any;
   clock: any;
+  heart: any;
   animatedFrames
   gameLoop: any;
   constructor(levelId: string, onEmit: OnEmitType) {
@@ -61,6 +63,8 @@ export class LevelState {
 
     // Create a clock
     this.clock = new Clock(60, this);
+
+    this.heart = new Heart(3,this);
 
     // Create a frame animation manager
     this.animatedFrames = new LevelAnimatedFrames();
@@ -106,6 +110,8 @@ export class LevelState {
 
     // // Update the clock
     this.clock.tick();
+
+    this.heart.tick();
 
     //Emit any changes to React
     this.onEmit(this.getState());
@@ -164,6 +170,7 @@ export class LevelState {
       cameraTransformY: this.camera.transformY,
       secondsRemaining: this.clock.secondsRemaining,
       inventory: this.inventory,
+      hpRemaining: this.heart.hpRemaining,
       // 重新開始
       id: this.id,
       // Edit Mode API
@@ -254,6 +261,7 @@ export class LevelState {
     const Keeptry = (event: CustomEvent) => {
         if (event.detail.id === this.id) { // ✅ 確保事件 `id` 正確
             console.log(`答錯，重新嘗試! id: ${event.detail.id}`);
+            this.heart.damage();
             this.gameLoop.start();
             const event3 = new CustomEvent("Againround", { detail: { id: this.id } });
             document.dispatchEvent(event3);

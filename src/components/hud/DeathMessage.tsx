@@ -5,6 +5,7 @@ import { TILES } from "@/helpers/tiles";
 import { useKeyPress } from "../../hooks/useKeyPress";
 import {
   DEATH_TYPE_CLOCK,
+  DEATH_TYPE_HEART,
   PLACEMENT_TYPE_GROUND_ENEMY,
   PLACEMENT_TYPE_FIRE,
   PLACEMENT_TYPE_FLYING_ENEMY,
@@ -21,6 +22,8 @@ const showDeathType = (deathType) => {
       return <Sprite frameCoord={TILES.WATER1} />;
     case DEATH_TYPE_CLOCK:
       return <Sprite frameCoord={TILES.CLOCK} />;
+    case DEATH_TYPE_HEART:
+      return <Sprite frameCoord={TILES.HEART} />;
     case PLACEMENT_TYPE_GROUND_ENEMY:
       return (
         <div
