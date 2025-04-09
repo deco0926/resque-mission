@@ -54,71 +54,91 @@ export default function RenderLevel() {
         }}
       > 
         <p
-          style={{
-            position: "absolute",
-            fontFamily: "Cubic",
-            fontSize: "36px",
-            color: "black",
-            textAlign: "left",
-            top: "40%",
-            left: "20%",
-            transform: "translateX(-50%)",
-            whiteSpace: "norwap", // ✅ 讓 \n 換行生效
-          }}
-        ><span>
-          碰撞月兔即可觸發對話，並給予你月亮寶石
-          <Image
-            src="/moon.png" // ✅ 確保路徑正確
-            alt="月亮寶石"
-            width={36} // ✅ 設定寬度
-            height={36} // ✅ 設定高度
-            style={{
-              display: "inline-block",
-              verticalAlign: "middle", // ✅ 讓圖片和文字對齊
-              marginLeft: "5px", // ✅ 增加間距
-            }}
-          />
-          </span>
-          <br/>
-          收集到所有的月亮寶石並到終點
-          <Image
-            src="/moon2.png" // ✅ 確保路徑正確
-            alt="月亮寶石"
-            width={36} // ✅ 設定寬度
-            height={36} // ✅ 設定高度
-            style={{
-              display: "inline-block",
-              verticalAlign: "middle", // ✅ 讓圖片和文字對齊
-              marginLeft: "5px", // ✅ 增加間距
-            }}
-          />回答問題!<br/>
-          使用方向鍵選擇選項並按下Enter即可回答問題~<br/>
-          若卡關了按下
-          <Image
-          src="/reset.png" // ✅ 確保路徑正確
-          alt="月亮寶石"
-          width={36} // ✅ 設定寬度
-          height={36} // ✅ 設定高度
-          style={{
-            display: "inline-block",
-            verticalAlign: "middle", // ✅ 讓圖片和文字對齊
-            marginLeft: "5px", // ✅ 增加間距
-          }}
-        />此按鈕會重製關卡喔~<br/>
-        想重新觀看開頭劇情可以按
-        <Image
-          src="/map.png" // ✅ 確保路徑正確
-          alt="月亮寶石"
-          width={36} // ✅ 設定寬度
-          height={36} // ✅ 設定高度
-          style={{
-            display: "inline-block",
-            verticalAlign: "middle", // ✅ 讓圖片和文字對齊
-            marginLeft: "5px", // ✅ 增加間距
-          }}
-        />
-        此按鈕
-        </p>
+  style={{
+    position: "absolute",
+    fontFamily: "Cubic",
+    fontSize: "36px",
+    color: "black",
+    textAlign: "left",
+    top: "40%",
+    left: "20%",
+    transform: "translateX(-50%)",
+    whiteSpace: "nowrap", // ✅ 修正拼錯字 "norwap"
+  }}
+>
+  <span>
+    碰撞月兔即可觸發對話，並給予你月亮寶石
+    <Image
+      src="/moon.png"
+      alt="月亮寶石"
+      width={36}
+      height={36}
+      style={{
+        display: "inline-block",
+        verticalAlign: "middle",
+        marginLeft: "5px",
+      }}
+    />
+  </span>
+  <br />
+  收集到所有的月亮寶石並到終點
+  <Image
+    src="/moon2.png"
+    alt="月亮寶石"
+    width={36}
+    height={36}
+    style={{
+      display: "inline-block",
+      verticalAlign: "middle",
+      marginLeft: "5px",
+    }}
+  />
+  回答問題!<br />
+  使用方向鍵選擇選項並按下 Enter 即可回答問題~<br />
+  <span>
+    如果回答錯誤會扣 1 顆心
+    <Image
+      src="/heart.png"
+      alt="愛心"
+      width={48}
+      height={48}
+      style={{
+        display: "inline-block",
+        verticalAlign: "middle",
+        marginLeft: "5px",
+      }}
+    />
+    ，沒心就要重來喔！
+  </span>
+  <br />
+  若卡關了按下
+  <Image
+    src="/reset.png"
+    alt="重製按鈕"
+    width={36}
+    height={36}
+    style={{
+      display: "inline-block",
+      verticalAlign: "middle",
+      marginLeft: "5px",
+    }}
+  />
+  此按鈕會重製關卡喔~<br />
+  想重新觀看開頭劇情可以按
+  <Image
+    src="/map.png"
+    alt="地圖按鈕"
+    width={36}
+    height={36}
+    style={{
+      display: "inline-block",
+      verticalAlign: "middle",
+      marginLeft: "5px",
+    }}
+  />
+  此按鈕
+</p>
+
         <div className={styles.gameScreen}>
           <div
             style={{

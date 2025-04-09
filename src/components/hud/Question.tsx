@@ -35,18 +35,76 @@ export default function Question({ id, onClose }: { id: string; onClose: () => v
         { question: "月亮的高度角是什麼？", options: ["月亮的亮度", "月亮與地平線的角度", "月亮的溫度", "月亮的直徑"], correctAnswer: "B" },
         { question: "高度角是用什麼單位來表示的？", options: ["公分", "度", "公里", "秒"], correctAnswer: "B" },
         { question: "一天中的什麼時間月亮的高度角最低？", options: ["晚上12點", "傍晚時分", "月亮剛升起時", "半夜過後"], correctAnswer: "C" },
+        { question: "用拳頭測量高度角時，一個拳頭約代表幾度？", options: ["15度", "5度", "10度", "20度"], correctAnswer: "C" },
       ],
       DemoLevel4: [
         { question: "製作高度角量角器時需要什麼材料？", options: ["紙板、量角器、繩子和吸管", "木材、膠水和沙子", "電腦和軟體", "石頭和塑膠管"], correctAnswer: "A" },
+        { question: "當用高度角量角器測量月亮時，需要指向哪裡？", options: ["地平線", "月亮", "太陽", "星星"], correctAnswer: "B" },
+        { question: "高度角量角器上的繩子指向90度，代表什麼？", options: ["月亮在地平線上", "月亮在天空正上方", "看不到月亮", "月亮在西方"], correctAnswer: "B" },
+        { question: "月亮高度角可以用什麼儀器來測量？", options: ["望遠鏡", "高度角量角器", "地圖", "照相機"], correctAnswer: "B" },
       ],
       DemoLevel5: [
         { question: "月亮一天中主要是什麼原因導致位置改變？", options: ["地球自轉", "月亮自轉", "太陽的移動", "星星的引力"], correctAnswer: "A" },
+        {
+          question: "一天中月亮從哪裡升起？",
+          options: ["東方", "西方", "北方", "南方"],
+          correctAnswer: "A",
+        },
+        {
+          question: "當我們看到月亮完全是圓的，這叫什麼？",
+          options: ["半月", "滿月", "新月", "彎月"],
+          correctAnswer: "B",
+        },
+        {
+          question: "當月亮看起來像一條細弧線時，我們稱為？",
+          options: ["半月", "滿月", "弦月", "新月"],
+          correctAnswer: "D",
+        }
       ],
       DemoLevel6: [
         { question: "月亮從彎月變圓月的階段叫什麼？", options: ["新月", "滿月", "虧月", "盈月"], correctAnswer: "D" },
+        {
+          question: "月亮從圓變成細弧形的階段叫什麼？",
+          options: ["盈月", "虧月", "新月", "上弦月"],
+          correctAnswer: "B", // 虧月 ✅
+        },
+        {
+          question: "月相的變化順序正確的是？",
+          options: [
+            "新月 → 滿月 → 上弦月 → 下弦月",
+            "新月 → 上弦月 → 滿月 → 下弦月",
+            "滿月 → 新月 → 下弦月 → 上弦月",
+            "滿月 → 上弦月 → 新月 → 下弦月",
+          ],
+          correctAnswer: "B", // 新月 → 上弦月 → 滿月 → 下弦月 ✅
+        },
+        {
+          question: "下列哪個形狀不是月亮會出現的形狀？",
+          options: ["圓形", "半圓形", "三角形", "彎月形"],
+          correctAnswer: "C", // 三角形 ✅
+        },
       ],
       DemoLevel7: [
-        { question: "為什麼月亮的形狀每天都不一樣？", options: ["月亮轉動太快", "地球和月亮的位置改變", "月亮自己變形", "天空的雲太多"], correctAnswer: "B" },
+        {
+          question: "為什麼月亮的形狀每天都不一樣？",
+          options: ["月亮轉動太快", "地球和月亮的位置改變", "月亮自己變形", "天空的雲太多"],
+          correctAnswer: "B", // 地球和月亮的位置改變 ✅
+        },
+        {
+          question: "月亮位於地球和太陽之間時，我們看到的是？",
+          options: ["滿月", "新月", "上弦月", "下弦月"],
+          correctAnswer: "B", // 新月 ✅
+        },
+        {
+          question: "月亮的盈虧變化多久重複一次？",
+          options: ["每週", "每月", "每年", "每天"],
+          correctAnswer: "B", // 每月 ✅
+        },
+        {
+          question: "月亮每天比前一天晚升起時，為什麼？",
+          options: ["月亮持續在公轉", "地球停止轉動", "月亮在變小", "太陽在移動"],
+          correctAnswer: "A", // 月亮持續在公轉 ✅
+        },
       ],
     };
 
@@ -94,10 +152,12 @@ export default function Question({ id, onClose }: { id: string; onClose: () => v
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (selectedOption === null) return;
-
-      if (event.key === "ArrowLeft") {
+  
+      const key = event.key.toLowerCase();
+  
+      if (event.key === "ArrowLeft" || key === "a") {
         setSelectedOption((prev) => (prev === 0 ? 3 : prev - 1));
-      } else if (event.key === "ArrowRight") {
+      } else if (event.key === "ArrowRight" || key === "d") {
         setSelectedOption((prev) => (prev === 3 ? 0 : prev + 1));
       } else if (event.key === "Enter") {
         if (selectedOption !== null) {
@@ -105,12 +165,13 @@ export default function Question({ id, onClose }: { id: string; onClose: () => v
         }
       }
     };
-
+  
     window.addEventListener("keydown", handleKeyDown);
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [selectedOption, selectedQuestion]);
+  
 
   const handleAnswer = (answer: string) => {
     if (!selectedQuestion.correctAnswer) return;
