@@ -5,6 +5,7 @@ import {
   PLACEMENT_TYPE_FIRE_PICKUP,
   PLACEMENT_TYPE_ICE_PICKUP,
   PLACEMENT_TYPE_WATER_PICKUP,
+  PLACEMENT_TYPE_WEAPON_PICKUP,
 } from "../../helpers/consts";
 
 const showInventory = [
@@ -27,6 +28,10 @@ const showInventory = [
   {
     key: "KEY_GREEN",
     tile: TILES.GREEN_KEY,
+  },
+  {
+    key: PLACEMENT_TYPE_WEAPON_PICKUP,
+    tile: TILES.WEAPON_PICKUP,
   },
 ];
 

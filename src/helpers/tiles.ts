@@ -68,6 +68,9 @@ export const TILES = {
   //Goal
   GOAL_DISABLED: "0x9",
   GOAL_ENABLED: "1x9",
+  WEAPON_LAUNCHER: "2x9",
+  WEAPON: "3x9",
+  WEAPON_PICKUP: "4x9",
 
   //Switches, Other
   PURPLE_BUTTON: "0x10",

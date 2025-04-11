@@ -101,6 +101,9 @@ export class Placement {
   canBeUnlocked() {
     return false;
   }
+  canBeLaunched() {
+    return false;
+  }
   canbeTalked(){
     return false;
   }

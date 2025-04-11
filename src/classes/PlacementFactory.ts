@@ -25,6 +25,9 @@ import {
   PLACEMENT_TYPE_PRINCESS,
   PLACEMENT_TYPE_BOARD,
   PLACEMENT_TYPE_WARNING,
+  PLACEMENT_TYPE_WEAPON,
+  PLACEMENT_TYPE_WEAPON_PICKUP,
+  PLACEMENT_TYPE_WEAPON_LAUNCHER,
 } from "../helpers/consts";
 
 import { HeroPlacement } from "../game-objects/HeroPlacement";
@@ -55,6 +58,8 @@ import { BoardPlacement } from "@/game-objects/BoardPlacement";
 import { LevelSchema, PlacementSchema } from "@/helpers/types";
 import { WaterPickupPlacement } from "@/game-objects/WaterPickupPlacement";
 import { WarningPlacement } from "@/game-objects/WarningPlacement";
+import { WeaponPickupPlacement } from "@/game-objects/WeaponPickupPlacement";
+import { WeaponLauncherPlacement } from "@/game-objects/WeaponLauncherPlacement";
 
 
 const placementTypeClassMap = {
@@ -84,6 +89,8 @@ const placementTypeClassMap = {
   [PLACEMENT_TYPE_CIABATTA]: CiabattaPlacement,
   [PLACEMENT_TYPE_BOARD]:BoardPlacement,
   [PLACEMENT_TYPE_WARNING]:WarningPlacement,
+  [PLACEMENT_TYPE_WEAPON_PICKUP]:WeaponPickupPlacement,
+  [PLACEMENT_TYPE_WEAPON_LAUNCHER]:WeaponLauncherPlacement,
 };
 
 class PlacementFactory {
