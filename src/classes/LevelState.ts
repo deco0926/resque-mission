@@ -62,7 +62,7 @@ export class LevelState {
     this.camera = new Camera(this);
 
     // Create a clock
-    this.clock = new Clock(60, this);
+    this.clock = new Clock(120, this);
 
     this.heart = new Heart(3,this);
 
