@@ -32,7 +32,7 @@ const DemoLevel7 = {
   tilesHeight: 13,
   placements: [
     { x: 7, y: 4, type: PLACEMENT_TYPE_HERO },
-    { x: 8, y: 4, type: PLACEMENT_TYPE_WEAPON_LAUNCHER},
+    // { x: 8, y: 4, type: PLACEMENT_TYPE_WEAPON_LAUNCHER},
     { x: 7, y: 10, type: PLACEMENT_TYPE_GOAL },
 
     { x: 7, y: 1, type: PLACEMENT_TYPE_CIABATTA },
