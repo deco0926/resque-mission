@@ -136,10 +136,10 @@ const DemoLevel4 = {
     { x: 10, y: 6, type:PLACEMENT_TYPE_TELEPORT},
     { x: 12, y: 2, type:PLACEMENT_TYPE_TELEPORT},
 
-    { x: 9, y: 6, type:PLACEMENT_TYPE_THIEF},
-    { x: 17, y: 1, type:PLACEMENT_TYPE_THIEF},
-    { x: 17, y: 2, type:PLACEMENT_TYPE_THIEF},
-    { x: 17, y: 3, type:PLACEMENT_TYPE_THIEF},
+    // { x: 9, y: 6, type:PLACEMENT_TYPE_THIEF},
+    // { x: 17, y: 1, type:PLACEMENT_TYPE_THIEF},
+    // { x: 17, y: 2, type:PLACEMENT_TYPE_THIEF},
+    // { x: 17, y: 3, type:PLACEMENT_TYPE_THIEF},
 
     { x: 1, y: 3, type:PLACEMENT_TYPE_SWITCH_DOOR,isRaised:false},
     { x: 1, y: 4, type:PLACEMENT_TYPE_SWITCH_DOOR,isRaised:true},
@@ -179,7 +179,7 @@ const DemoLevel4 = {
     { x: 17, y: 5, type:PLACEMENT_TYPE_CONVEYOR,direction:'RIGHT'},
     { x: 17, y: 6, type:PLACEMENT_TYPE_CONVEYOR,direction:'RIGHT'},
 
-    { x: 3, y: 8, type:PLACEMENT_TYPE_ROAMING_ENEMY},
+    { x: 3, y: 9, type:PLACEMENT_TYPE_FLYING_ENEMY},
 
     
 

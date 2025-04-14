@@ -47,7 +47,7 @@ const DemoLevel3 = {
     { x: 11, y: 10, type: PLACEMENT_TYPE_SWITCH_DOOR, isRaised: false },
     { x: 9, y: 7, type: PLACEMENT_TYPE_SWITCH },
 
-    { x: 9, y: 9, type: PLACEMENT_TYPE_THIEF},
+    // { x: 9, y: 9, type: PLACEMENT_TYPE_THIEF},
 
     { x: 2, y: 5, type: PLACEMENT_TYPE_WALL },
     { x: 2, y: 7, type: PLACEMENT_TYPE_WALL },

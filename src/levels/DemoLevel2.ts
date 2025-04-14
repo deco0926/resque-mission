@@ -137,8 +137,8 @@ const DemoLevel2 = {
     { x: 14, y: 4, type: PLACEMENT_TYPE_LOCK,color:'GREEN' },
     { x: 14, y: 11, type: PLACEMENT_TYPE_KEY,color:'GREEN' },
 
-    { x: 10, y: 6, type: PLACEMENT_TYPE_THIEF },
-    { x: 14, y: 8, type: PLACEMENT_TYPE_THIEF },
+    // { x: 10, y: 6, type: PLACEMENT_TYPE_THIEF },
+    // { x: 14, y: 8, type: PLACEMENT_TYPE_THIEF },
 
     { x: 8, y: 4, type: PLACEMENT_TYPE_RABBIT,Talking:'你知道嗎？月亮的表面可不是軟綿綿的，而是滿滿的石頭和岩石哦！',point:'石頭和岩石'},
     { x: 8, y: 11, type: PLACEMENT_TYPE_RABBIT,Talking:'你知道月亮上那些大大小小的坑洞是怎麼形成的嗎？那些是隕石撞出來的哦！因為月亮沒有大氣層，隕石直接砸在表面，久而久之就變成現在這樣啦！',point:'隕石撞出來'},

@@ -9,6 +9,9 @@ import { LevelAnimatedFrames } from "./LevelAnimatedFrames";
 import { Camera } from "./Camera";
 import { Clock } from "./Clock";
 import { Heart } from "./Heart";
+import { db } from "@/lib/firebase";
+import { collection, addDoc } from "firebase/firestore";
+import { getPlayerId } from "@/utils/getPlayerId"; // 用來辨識玩家
 type OnEmitType = (level: LevelSchema) => void;
 
 export class LevelState {
@@ -210,10 +213,23 @@ export class LevelState {
   }
 
   setDeathOutcome(causeOfDeath) {
+    if (this.deathOutcome) return; // ✅ 避免重複呼叫
     this.deathOutcome = causeOfDeath;
     this.gameLoop.stop();
+  
+    // ✅ 上傳死亡資料到 Firebase
+    addDoc(collection(db, "deaths"), {
+      playerId: getPlayerId(),
+      level: this.id,
+      cause: causeOfDeath,
+      timestamp: new Date().toISOString(),
+    }).then(() => {
+      console.log("☠️ 死亡紀錄已送出：", causeOfDeath);
+    }).catch((err) => {
+      console.error("死亡紀錄寫入失敗：", err);
+    });
   }
-
+  
   completeLevel() {
     this.isCompleted = true;
     // ✅ 等待 1 Tick（16.67 毫秒）後才停止遊戲循環

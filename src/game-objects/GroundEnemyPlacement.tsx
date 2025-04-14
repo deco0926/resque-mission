@@ -73,7 +73,11 @@ export class GroundEnemyPlacement extends BodyPlacement {
       return;
     }
     // Vertical change
-    currentDir === DIRECTION_UP ? DIRECTION_DOWN : DIRECTION_UP;
+    if (currentDir === DIRECTION_DOWN || currentDir === DIRECTION_UP) {
+      this.movingPixelDirection =
+        currentDir === DIRECTION_DOWN ? DIRECTION_UP : DIRECTION_DOWN;
+      return;
+    }
   }
 
 

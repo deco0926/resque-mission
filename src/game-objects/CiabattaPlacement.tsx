@@ -123,12 +123,12 @@ export class CiabattaPlacement extends GroundEnemyPlacement {
         returnToY: this.y,
       };
     }
-    if (next === ATTACKS.SPAWN) {
-      this.currentAttack = {
-        type: ATTACKS.SPAWN,
-        framesRemaining: 220, // 這個攻擊的持續時間
-      };
-    }
+    // if (next === ATTACKS.SPAWN) {
+    //   this.currentAttack = {
+    //     type: ATTACKS.SPAWN,
+    //     framesRemaining: 220, // 這個攻擊的持續時間
+    //   };
+    // }
   }
 
   workOnAttackFrame() {

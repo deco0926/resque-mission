@@ -1,6 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import { db } from "@/lib/firebase";
+import { collection, addDoc } from "firebase/firestore";
+import { getPlayerId } from "@/utils/getPlayerId";
 
 
 // ✅ 題目循環索引記錄器（記得不會跨頁保存）
@@ -173,15 +176,34 @@ export default function Question({ id, onClose }: { id: string; onClose: () => v
   }, [selectedOption, selectedQuestion]);
   
 
-  const handleAnswer = (answer: string) => {
+  const handleAnswer = async (answer: string) => {
     if (!selectedQuestion.correctAnswer) return;
-    if (answer === selectedQuestion.correctAnswer) {
-      document.dispatchEvent(new CustomEvent("Answeright", { detail: { id } }));
-    } else {
-      document.dispatchEvent(new CustomEvent("Answerwrong", { detail: { id } }));
+  
+    const isCorrect = answer === selectedQuestion.correctAnswer;
+  
+    // ✅ 將答題紀錄送到 Firebase
+    try {
+      await addDoc(collection(db, "answers"), {
+        playerId: getPlayerId(),
+        level: id,
+        question: selectedQuestion.question,
+        options: selectedQuestion.options,
+        selected: answer,
+        correct: selectedQuestion.correctAnswer,
+        isCorrect,
+        timestamp: new Date().toISOString(),
+      });
+    } catch (error) {
+      console.error("送出答題資料失敗：", error);
     }
+  
+    document.dispatchEvent(
+      new CustomEvent(isCorrect ? "Answeright" : "Answerwrong", { detail: { id } })
+    );
+  
     onClose();
   };
+  
 
   return (
     <div
@@ -209,7 +231,7 @@ export default function Question({ id, onClose }: { id: string; onClose: () => v
       <div style={{ display: "flex", justifyContent: "center", gap: "20px" }}>
         {optionKeys.map((option, index) => (
           <div key={option} style={{ position: "relative", cursor: "pointer" }} onClick={() => handleAnswer(option)}>
-            <Image src={selectedOption === index ? "/glowing-text-box.png" : "/text-box.png"} alt={`選項 ${option}`} width={550} height={50} />
+            <Image src={selectedOption === index ? "/glowing-text-box.png" : "/text-box.png"} alt={`選項 ${option}`} width={600} height={50} />
             <p style={{
               position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)",
               fontSize: "33px", fontFamily: "Cubic", color: "white", textAlign: "center", whiteSpace: "nowrap"

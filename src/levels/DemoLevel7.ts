@@ -45,7 +45,7 @@ const DemoLevel7 = {
     { x: 5, y: 6, type: PLACEMENT_TYPE_SWITCH_DOOR, isRaised: true },
     { x: 6, y: 6, type: PLACEMENT_TYPE_SWITCH_DOOR, isRaised: true },
     { x: 7, y: 6, type: PLACEMENT_TYPE_SWITCH_DOOR, isRaised: true },
-    { x: 7, y: 13, type: PLACEMENT_TYPE_SWITCH_DOOR, isRaised: true },
+    // { x: 7, y: 13, type: PLACEMENT_TYPE_SWITCH_DOOR, isRaised: true },
     { x: 8, y: 6, type: PLACEMENT_TYPE_SWITCH_DOOR, isRaised: true },
     { x: 9, y: 6, type: PLACEMENT_TYPE_SWITCH_DOOR, isRaised: true },
     { x: 4, y: 1, type: PLACEMENT_TYPE_SWITCH },
@@ -189,8 +189,8 @@ const DemoLevel7 = {
     { x: 9, y: 13, type: PLACEMENT_TYPE_FIRE },
     { x: 8, y: 13, type: PLACEMENT_TYPE_FIRE },
 
-    { x: 1, y: 10, type: PLACEMENT_TYPE_THIEF },
-    { x: 13, y: 10, type: PLACEMENT_TYPE_THIEF },
+    { x: 1, y: 10, type: PLACEMENT_TYPE_FIRE },
+    { x: 13, y: 10, type: PLACEMENT_TYPE_FIRE },
 
     { x: 4, y: 4, type: PLACEMENT_TYPE_CONVEYOR,direction:'LEFT' },
     { x: 10, y: 4, type: PLACEMENT_TYPE_CONVEYOR,direction:'RIGHT' },
