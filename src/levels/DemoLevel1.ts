@@ -27,12 +27,12 @@ import {
 } from "../helpers/consts";
 const DemoLevel1 = {
   theme: LEVEL_THEMES.GRAY,
-  tilesWidth: 46,
+  tilesWidth: 40,
   tilesHeight: 3,
   placements: [
     { x: 2, y: 2, type: PLACEMENT_TYPE_HERO },
     // { x: 2, y: 5, type: PLACEMENT_TYPE_FLOUR },
-    { x: 45, y: 2, type: PLACEMENT_TYPE_GOAL },
+    { x: 39, y: 2, type: PLACEMENT_TYPE_GOAL },
 
     { x: 9, y: 2, type: PLACEMENT_TYPE_WATER_PICKUP},
     { x: 10, y: 1, type: PLACEMENT_TYPE_WATER},
@@ -78,14 +78,14 @@ const DemoLevel1 = {
     { x: 33, y: 2, type: PLACEMENT_TYPE_WALL},
     { x: 33, y: 3, type: PLACEMENT_TYPE_WALL},
 
-    { x: 39, y: 1, type: PLACEMENT_TYPE_THIEF},
-    { x: 39, y: 2, type: PLACEMENT_TYPE_THIEF},
-    { x: 39, y: 3, type: PLACEMENT_TYPE_THIEF},
+    // { x: 39, y: 1, type: PLACEMENT_TYPE_THIEF},
+    // { x: 39, y: 2, type: PLACEMENT_TYPE_THIEF},
+    // { x: 39, y: 3, type: PLACEMENT_TYPE_THIEF},
 
-    { x: 41, y: 2, type: PLACEMENT_TYPE_KEY},
-    { x: 43, y: 2, type: PLACEMENT_TYPE_LOCK},
-    { x: 43, y: 1, type: PLACEMENT_TYPE_WALL},
-    { x: 43, y: 3, type: PLACEMENT_TYPE_WALL},
+    { x: 35, y: 2, type: PLACEMENT_TYPE_KEY},
+    { x: 37, y: 2, type: PLACEMENT_TYPE_LOCK},
+    { x: 37, y: 1, type: PLACEMENT_TYPE_WALL},
+    { x: 37, y: 3, type: PLACEMENT_TYPE_WALL},
     
     { x: 5, y: 2, type: PLACEMENT_TYPE_RABBIT,Talking:"你好~是后羿啊!嫦娥被抓走了!熟悉這些道具的作用然後拿上這個月亮寶石去拯救她吧!"},
     { x: 8, y: 2, type: PLACEMENT_TYPE_BOARD,Talking:"穿上這個可以在水裡游泳~"},
@@ -93,7 +93,7 @@ const DemoLevel1 = {
     { x: 20, y: 2, type: PLACEMENT_TYPE_BOARD,Talking:"穿上這個可以防火~"},
     { x: 26, y: 2, type: PLACEMENT_TYPE_BOARD,Talking:"踩下這個按鈕就會改變方塊的狀態~"},
     { x: 31, y: 2, type: PLACEMENT_TYPE_BOARD,Talking:"只要踩到這個方塊就會移動到另一個對應的方塊哦~"},
-    { x: 37, y: 2, type: PLACEMENT_TYPE_BOARD,Talking:"踩到這個方塊就會還原之前拿到的道具，要小心哦~"},
+    // { x: 37, y: 2, type: PLACEMENT_TYPE_BOARD,Talking:"踩到這個方塊就會還原之前拿到的道具，要小心哦~"},
 
    
 
