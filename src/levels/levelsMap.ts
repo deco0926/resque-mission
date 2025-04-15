@@ -6,7 +6,7 @@ import DemoLevel5 from "./DemoLevel5";
 import DemoLevel6 from "./DemoLevel6";
 import DemoLevel7 from "./DemoLevel7";
 const Levels = {
-  DemoLevel1: DemoLevel1,
+  DemoLevel1: DemoLevel3,
   DemoLevel2: DemoLevel2,
   DemoLevel3: DemoLevel3,
   DemoLevel4: DemoLevel4,
