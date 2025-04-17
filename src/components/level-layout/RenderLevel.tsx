@@ -124,7 +124,7 @@ export default function RenderLevel() {
     }}
   />
   此按鈕會重製關卡喔~<br />
-  想重新觀看開頭劇情可以按
+  想選擇其他關卡可以按
   <Image
     src="/map.png"
     alt="地圖按鈕"
@@ -136,7 +136,7 @@ export default function RenderLevel() {
       marginLeft: "5px",
     }}
   />
-  此按鈕
+  此按鈕(0為開頭劇情)
 </p>
 
         <div className={styles.gameScreen}>
