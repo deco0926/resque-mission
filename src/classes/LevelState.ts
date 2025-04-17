@@ -186,6 +186,7 @@ export class LevelState {
       setEditModePlacementType: this.setEditModePlacementType.bind(this),
       copyPlacementsToClipboard: this.copyPlacementsToClipboard.bind(this),
       restart: this.restart.bind(this),
+      changelevel: this.changelevel.bind(this),
     };
   }
   restart() {

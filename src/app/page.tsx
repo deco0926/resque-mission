@@ -96,6 +96,16 @@ export default function Home() {
       document.removeEventListener("Question", handleShowQuestion as EventListener);
     };
   }, []);
+  useEffect(() => {
+    const handleCloseNpcTalk = () => {
+      setShowQuestion(false);
+    };
+
+    document.addEventListener("CloseNpcTalk", handleCloseNpcTalk);
+    return () => {
+      document.removeEventListener("CloseNpcTalk", handleCloseNpcTalk);
+    };
+  }, []);
 
   useEffect(() => {
     let interval: NodeJS.Timeout | null = null;

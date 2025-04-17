@@ -6,6 +6,7 @@ import InventoryList from "./InventoryList";
 import ResetButton from "./ResetButton";
 import MapButton from "./MapButton";
 import HeartCount from "./HeartCount";
+import LevelButton from "./LevelButton";
 
 export default function TopHud({ level }) {
   return (
@@ -20,6 +21,7 @@ export default function TopHud({ level }) {
       <div className={styles.topHudRight}>
         <MapButton level ={level} />
         <ResetButton level={level} />
+        {/* <LevelButton level={level} /> */}
         {/*<span>Come back to me</span>*/}
         {/* <EditorDropdown level={level} /> */}
         
