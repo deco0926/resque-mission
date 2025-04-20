@@ -205,7 +205,7 @@ export class BodyPlacement extends Placement {
           } else if (event.type === "Againround") {
               console.log(`答錯，重置角色位置，id: ${event.detail.id}`);
               if (event.detail.id === "DemoLevel1") {
-                  this.x = 40;
+                  this.x = 35;
                   this.y = 2;
               } else if (event.detail.id === "DemoLevel2") {
                   this.x = 12;
