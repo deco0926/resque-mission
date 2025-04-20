@@ -12,6 +12,7 @@ import { Heart } from "./Heart";
 import { db } from "@/lib/firebase";
 import { collection, addDoc } from "firebase/firestore";
 import { getPlayerId } from "@/utils/getPlayerId"; // 用來辨識玩家
+import { getAnswers, clearAnswers } from "@/utils/answerCache";
 type OnEmitType = (level: LevelSchema) => void;
 
 export class LevelState {
@@ -32,9 +33,14 @@ export class LevelState {
   heart: any;
   animatedFrames
   gameLoop: any;
+  deathTypesMap: Record<string, number>;
+  private totalElapsedTime: number = 0; // 總計時（累積時間）
+  private attemptStartTime: number = Date.now(); // 每次開始的時間戳
+  private deathCount: number = 0; // 死亡次數
   constructor(levelId: string, onEmit: OnEmitType) {
     // publisher-subscriber pattern
     // onEmit 函數在這裡被用作一種回調機制，允許外部程式碼 "訂閱" LevelState 的狀態變化。
+    this.deathTypesMap = {}; // 記錄死法與次數，例如 { spike: 2, enemy: 3 }
     this.id = levelId;
     this.onEmit = onEmit;
     this.directionControls = new DirectionControls();
@@ -47,6 +53,12 @@ export class LevelState {
   }
 
   start() {
+    if (this.totalElapsedTime === undefined) {
+      this.totalElapsedTime = 0;
+      this.deathCount = 0;
+    }
+    this.attemptStartTime = Date.now(); // 每次 start 都要更新開始時間
+
     const levelData = LevelsMap[this.id];
     this.deathOutcome = null;
     this.theme = levelData.theme;
@@ -73,6 +85,8 @@ export class LevelState {
     this.animatedFrames = new LevelAnimatedFrames();
 
     this.startGameLoop();
+
+    this.isCompleted = false;
   }
 
   addPlacement(config) {
@@ -190,9 +204,17 @@ export class LevelState {
     };
   }
   restart() {
+    // ✅ 計算這次嘗試的耗時，加入總耗時
+    const now = Date.now();
+    const elapsed = (now - this.attemptStartTime) / 1000; // 秒
+    this.totalElapsedTime += elapsed;
+    this.deathCount += 1;
+    console.log(`死亡 ${this.deathCount} 次，已累積時間 ${this.totalElapsedTime} 秒`);
+  
     this.gameLoop.stop();
     this.start();
   }
+  
   changelevel(newLevelId: string) {
     console.log(`切換關卡: ${this.id} → ${newLevelId}`);
 
@@ -213,31 +235,66 @@ export class LevelState {
     this.inventory.clear();
   }
 
-  setDeathOutcome(causeOfDeath) {
-    if (this.deathOutcome) return; // ✅ 避免重複呼叫
+  setDeathOutcome(causeOfDeath: string) {
+    if (this.deathOutcome) return;
+  
     this.deathOutcome = causeOfDeath;
     this.gameLoop.stop();
   
-    // ✅ 上傳死亡資料到 Firebase
-    addDoc(collection(db, "deaths"), {
-      playerId: getPlayerId(),
-      level: this.id,
-      cause: causeOfDeath,
-      timestamp: new Date().toISOString(),
-    }).then(() => {
-      console.log("☠️ 死亡紀錄已送出：", causeOfDeath);
-    }).catch((err) => {
-      console.error("死亡紀錄寫入失敗：", err);
-    });
+    // ✅ 更新死法統計
+    if (!this.deathTypesMap[causeOfDeath]) {
+      this.deathTypesMap[causeOfDeath] = 1;
+    } else {
+      this.deathTypesMap[causeOfDeath]++;
+    }
+  
+    // ✅ 單獨死亡紀錄仍然上傳（你可以保留這段）
+    // addDoc(collection(db, "deaths"), {
+    //   playerId: getPlayerId(),
+    //   level: this.id,
+    //   cause: causeOfDeath,
+    //   timestamp: new Date().toISOString(),
+    // }).then(() => {
+    //   console.log("☠️ 死亡紀錄已送出：", causeOfDeath);
+    // }).catch((err) => {
+    //   console.error("死亡紀錄寫入失敗：", err);
+    // });
   }
   
-  completeLevel() {
+  
+  async completeLevel() {
     this.isCompleted = true;
-    // ✅ 等待 1 Tick（16.67 毫秒）後才停止遊戲循環
+  
+    const now = Date.now();
+    const finalAttempt = (now - this.attemptStartTime) / 1000;
+    const totalTime = this.totalElapsedTime + finalAttempt;
+    const answers = getAnswers(this.id); // ✅ 拿到這關的所有答題紀錄
+    clearAnswers(this.id);               // ✅ 通關後清除記憶體暫存
+    try {
+      await addDoc(collection(db, "levelCompletion"), {
+        playerId: getPlayerId(),
+        level: this.id,
+        totalTime,
+        deathCount: this.deathCount,
+        deathTypes: this.deathTypesMap,
+        answers: answers,
+        timestamp: new Date().toISOString(),
+      });
+      console.log("✅ 通關紀錄送出！", {
+        totalTime,
+        deathCount: this.deathCount,
+        deathTypes: this.deathTypesMap,
+      });
+    } catch (err) {
+      console.error("❌ 通關紀錄上傳失敗", err);
+    }
+  
     setTimeout(() => {
-        this.gameLoop.stop();
+      this.gameLoop.stop();
     }, 100);
   }
+  
+  
 
 
   npctalk() {

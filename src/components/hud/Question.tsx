@@ -4,6 +4,8 @@ import Image from "next/image";
 import { db } from "@/lib/firebase";
 import { collection, addDoc } from "firebase/firestore";
 import { getPlayerId } from "@/utils/getPlayerId";
+import { recordAnswer } from "@/utils/answerCache";
+
 
 
 // ✅ 題目循環索引記錄器（記得不會跨頁保存）
@@ -176,33 +178,31 @@ export default function Question({ id, onClose }: { id: string; onClose: () => v
   }, [selectedOption, selectedQuestion]);
   
 
+  
   const handleAnswer = async (answer: string) => {
     if (!selectedQuestion.correctAnswer) return;
-  
+
     const isCorrect = answer === selectedQuestion.correctAnswer;
-  
-    // ✅ 將答題紀錄送到 Firebase
-    try {
-      await addDoc(collection(db, "answers"), {
-        playerId: getPlayerId(),
-        level: id,
-        question: selectedQuestion.question,
-        options: selectedQuestion.options,
-        selected: answer,
-        correct: selectedQuestion.correctAnswer,
-        isCorrect,
-        timestamp: new Date().toISOString(),
-      });
-    } catch (error) {
-      console.error("送出答題資料失敗：", error);
-    }
-  
+
+    // ✅ 把這次答題記錄進緩存，不直接送到 Firebase
+    recordAnswer(id, {
+      question: selectedQuestion.question,
+      options: selectedQuestion.options,
+      selected: answer,
+      correct: selectedQuestion.correctAnswer,
+      isCorrect,
+      timestamp: new Date().toISOString(),
+    });
+
+    // ✅ 根據答對或答錯，發送對應的事件（控制劇情與回合流程）
     document.dispatchEvent(
       new CustomEvent(isCorrect ? "Answeright" : "Answerwrong", { detail: { id } })
     );
-  
+
+    // ✅ 關閉題目介面
     onClose();
   };
+
   
 
   return (

@@ -1,7 +1,7 @@
 export const CELL_SIZE = 16;
 export const Z_INDEX_LAYER_SIZE = 10;
 
-export const SPRITE_SHEET_SRC = "/ciabattas-revenge-sprites5.png";
+export const SPRITE_SHEET_SRC = "/ciabattas-revenge-sprites6.png";
 
 export const PLACEMENT_TYPE_HERO = "HERO";
 export const PLACEMENT_TYPE_GOAL = "GOAL";

@@ -44,7 +44,7 @@ export default function RenderLevel() {
   }
   const cameraTranslate = `translate3d(${level.cameraTransformX}, ${level.cameraTransformY}, 0)`;
   if (endingstate === true){
-    return <EndingPage />
+    return <EndingPage level={level} />
   } else {
     return (
       <div
@@ -151,7 +151,7 @@ export default function RenderLevel() {
             <LevelPlacementsLayer level={level} />
           </div>
           
-          {level.isCompleted && <LevelCompleteMessage />}
+          {level.isCompleted && <LevelCompleteMessage level={level} />}
           {level.deathOutcome && <DeathMessage level={level} />}
         </div>
         <TopHud level={level} />

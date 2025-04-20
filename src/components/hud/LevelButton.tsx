@@ -27,7 +27,7 @@ export default function LevelButton({ level, onCloseMenu }: PropType) {
   const [currentId, setCurrentId] = useRecoilState(currentLevelIdAtom);
   const handleTitle = () => {
     setTitleState(true);
-    // document.dispatchEvent(new CustomEvent("CloseNpcTalk"));
+    document.dispatchEvent(new CustomEvent("CloseNpcTalk"));
     onCloseMenu?.();
   };
 
@@ -50,8 +50,8 @@ export default function LevelButton({ level, onCloseMenu }: PropType) {
               handleTitle();
             } else {
               // 1~7 → 切換關卡
-              setCurrentId(levelId);
               document.dispatchEvent(new CustomEvent("CloseNpcTalk"));
+              // setCurrentId(levelId);
               level.changelevel(levelId);
               onCloseMenu?.();
             }
