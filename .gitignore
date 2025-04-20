@@ -34,3 +34,17 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# 🔐 忽略 Firebase 金鑰
+firebase-csv-export/serviceAccountKey.json
+
+# 📊 匯出的 CSV 檔案
+firebase-csv-export/*.csv
+
+# 📦 node_modules 資料夾
+node_modules/
+
+# 💾 暫存或備份檔案
+*.log
+.DS_Store
+
