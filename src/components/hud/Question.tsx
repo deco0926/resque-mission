@@ -1,19 +1,14 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { db } from "@/lib/firebase";
-import { collection, addDoc } from "firebase/firestore";
-import { getPlayerId } from "@/utils/getPlayerId";
 import { recordAnswer } from "@/utils/answerCache";
+import { getPlayerId } from "@/utils/getPlayerId";
 
-
-
-// ✅ 題目循環索引記錄器（記得不會跨頁保存）
+// ✅ 外部儲存初始化狀態
 const questionIndexMap: Record<string, number> = {};
+const questionInitializedSet = new Set<string>(); // ✅ 新增這一行
 
 export default function Question({ id, onClose }: { id: string; onClose: () => void }) {
- 
-
   const [selectedQuestion, setSelectedQuestion] = useState({
     question: "",
     options: [],
@@ -24,8 +19,6 @@ export default function Question({ id, onClose }: { id: string; onClose: () => v
   const optionKeys = ["A", "B", "C", "D"];
 
   useEffect(() => {
-    let questionData;
-
     const questionPools: Record<string, { question: string; options: string[]; correctAnswer: string }[]> = {
       DemoLevel1: [
         { question: "請問你最忠心的夥伴是誰?", options: ["月兔", "雉雞", "小白狗", "小猴子"], correctAnswer: "A" },
@@ -50,102 +43,54 @@ export default function Question({ id, onClose }: { id: string; onClose: () => v
       ],
       DemoLevel5: [
         { question: "月亮一天中主要是什麼原因導致位置改變？", options: ["地球自轉", "月亮自轉", "太陽的移動", "星星的引力"], correctAnswer: "A" },
-        {
-          question: "一天中月亮從哪裡升起？",
-          options: ["東方", "西方", "北方", "南方"],
-          correctAnswer: "A",
-        },
-        {
-          question: "當我們看到月亮完全是圓的，這叫什麼？",
-          options: ["半月", "滿月", "新月", "彎月"],
-          correctAnswer: "B",
-        },
-        {
-          question: "當月亮看起來像一條細弧線時，我們稱為？",
-          options: ["半月", "滿月", "弦月", "新月"],
-          correctAnswer: "D",
-        }
+        { question: "一天中月亮從哪裡升起？", options: ["東方", "西方", "北方", "南方"], correctAnswer: "A" },
+        { question: "當我們看到月亮完全是圓的，這叫什麼？", options: ["半月", "滿月", "新月", "彎月"], correctAnswer: "B" },
+        { question: "當月亮看起來像一條細弧線時，我們稱為？", options: ["半月", "滿月", "弦月", "新月"], correctAnswer: "D" },
       ],
       DemoLevel6: [
         { question: "月亮從彎月變圓月的階段叫什麼？", options: ["新月", "滿月", "虧月", "盈月"], correctAnswer: "D" },
-        {
-          question: "月亮從圓變成細弧形的階段叫什麼？",
-          options: ["盈月", "虧月", "新月", "上弦月"],
-          correctAnswer: "B", // 虧月 ✅
-        },
-        {
-          question: "月相的變化順序正確的是？",
-          options: [
-            "新月 → 滿月 → 上弦月 → 下弦月",
-            "新月 → 上弦月 → 滿月 → 下弦月",
-            "滿月 → 新月 → 下弦月 → 上弦月",
-            "滿月 → 上弦月 → 新月 → 下弦月",
-          ],
-          correctAnswer: "B", // 新月 → 上弦月 → 滿月 → 下弦月 ✅
-        },
-        {
-          question: "下列哪個形狀不是月亮會出現的形狀？",
-          options: ["圓形", "半圓形", "三角形", "彎月形"],
-          correctAnswer: "C", // 三角形 ✅
-        },
+        { question: "月亮從圓變成細弧形的階段叫什麼？", options: ["盈月", "虧月", "新月", "上弦月"], correctAnswer: "B" },
+        { question: "月相的變化順序正確的是？", options: ["新月 → 滿月 → 上弦月 → 下弦月", "新月 → 上弦月 → 滿月 → 下弦月", "滿月 → 新月 → 下弦月 → 上弦月", "滿月 → 上弦月 → 新月 → 下弦月"], correctAnswer: "B" },
+        { question: "下列哪個形狀不是月亮會出現的形狀？", options: ["圓形", "半圓形", "三角形", "彎月形"], correctAnswer: "C" },
       ],
       DemoLevel7: [
-        {
-          question: "為什麼月亮的形狀每天都不一樣？",
-          options: ["月亮轉動太快", "地球和月亮的位置改變", "月亮自己變形", "天空的雲太多"],
-          correctAnswer: "B", // 地球和月亮的位置改變 ✅
-        },
-        {
-          question: "月亮位於地球和太陽之間時，我們看到的是？",
-          options: ["滿月", "新月", "上弦月", "下弦月"],
-          correctAnswer: "B", // 新月 ✅
-        },
-        {
-          question: "月亮的盈虧變化多久重複一次？",
-          options: ["每週", "每月", "每年", "每天"],
-          correctAnswer: "B", // 每月 ✅
-        },
-        {
-          question: "月亮每天比前一天晚升起時，為什麼？",
-          options: ["月亮持續在公轉", "地球停止轉動", "月亮在變小", "太陽在移動"],
-          correctAnswer: "A", // 月亮持續在公轉 ✅
-        },
+        { question: "為什麼月亮的形狀每天都不一樣？", options: ["月亮轉動太快", "地球和月亮的位置改變", "月亮自己變形", "天空的雲太多"], correctAnswer: "B" },
+        { question: "月亮位於地球和太陽之間時，我們看到的是？", options: ["滿月", "新月", "上弦月", "下弦月"], correctAnswer: "B" },
+        { question: "月亮的盈虧變化多久重複一次？", options: ["每週", "每月", "每年", "每天"], correctAnswer: "B" },
+        { question: "月亮每天比前一天晚升起時，為什麼？", options: ["月亮持續在公轉", "地球停止轉動", "月亮在變小", "太陽在移動"], correctAnswer: "A" },
       ],
     };
 
-    if (questionPools[id]) {
-      const questions = questionPools[id];
-    
+    const questions = questionPools[id];
+    if (!questions) return;
+
+    // ✅ 確保只初始化一次該關卡的循環邏輯
+    if (!questionInitializedSet.has(id)) {
       if (!questionIndexMap.hasOwnProperty(id)) {
         questionIndexMap[id] = 0;
       }
-    
-      const currentIndex = Math.floor(questionIndexMap[id]);
-      const original = questions[currentIndex];
-    
-      questionIndexMap[id] = (questionIndexMap[id] + 0.5) % questions.length;
-    
-      // ✅ 原始正確答案內容
-      const originalCorrectText = original.options[["A", "B", "C", "D"].indexOf(original.correctAnswer)];
-    
-      // ✅ 打亂選項 (Fisher-Yates 洗牌)
-      const shuffledOptions = [...original.options];
-      for (let i = shuffledOptions.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [shuffledOptions[i], shuffledOptions[j]] = [shuffledOptions[j], shuffledOptions[i]];
-      }
-    
-      // ✅ 找出打亂後正確答案的新索引
-      const newCorrectIndex = shuffledOptions.indexOf(originalCorrectText);
-      const newCorrectAnswer = ["A", "B", "C", "D"][newCorrectIndex];
-    
-      // ✅ 更新選擇的題目
-      setSelectedQuestion({
-        question: original.question,
-        options: shuffledOptions,
-        correctAnswer: newCorrectAnswer,
-      });
-    }        
+      questionInitializedSet.add(id); // ✅ 標記為已初始化
+    }
+
+    const currentIndex = Math.floor(questionIndexMap[id]);
+    const original = questions[currentIndex];
+    questionIndexMap[id] = (questionIndexMap[id] + 0.5) % questions.length;
+
+    const originalCorrectText = original.options[["A", "B", "C", "D"].indexOf(original.correctAnswer)];
+    const shuffledOptions = [...original.options];
+    for (let i = shuffledOptions.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffledOptions[i], shuffledOptions[j]] = [shuffledOptions[j], shuffledOptions[i]];
+    }
+
+    const newCorrectIndex = shuffledOptions.indexOf(originalCorrectText);
+    const newCorrectAnswer = ["A", "B", "C", "D"][newCorrectIndex];
+
+    setSelectedQuestion({
+      question: original.question,
+      options: shuffledOptions,
+      correctAnswer: newCorrectAnswer,
+    });
   }, [id]);
 
   useEffect(() => {
@@ -157,9 +102,8 @@ export default function Question({ id, onClose }: { id: string; onClose: () => v
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (selectedOption === null) return;
-  
       const key = event.key.toLowerCase();
-  
+
       if (event.key === "ArrowLeft" || key === "a") {
         setSelectedOption((prev) => (prev === 0 ? 3 : prev - 1));
       } else if (event.key === "ArrowRight" || key === "d") {
@@ -170,21 +114,16 @@ export default function Question({ id, onClose }: { id: string; onClose: () => v
         }
       }
     };
-  
-    window.addEventListener("keydown", handleKeyDown);
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [selectedOption, selectedQuestion]);
-  
 
-  
-  const handleAnswer = async (answer: string) => {
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [selectedOption, selectedQuestion]);
+
+  const handleAnswer = (answer: string) => {
     if (!selectedQuestion.correctAnswer) return;
 
     const isCorrect = answer === selectedQuestion.correctAnswer;
 
-    // ✅ 把這次答題記錄進緩存，不直接送到 Firebase
     recordAnswer(id, {
       question: selectedQuestion.question,
       options: selectedQuestion.options,
@@ -194,16 +133,14 @@ export default function Question({ id, onClose }: { id: string; onClose: () => v
       timestamp: new Date().toISOString(),
     });
 
-    // ✅ 根據答對或答錯，發送對應的事件（控制劇情與回合流程）
     document.dispatchEvent(
-      new CustomEvent(isCorrect ? "Answeright" : "Answerwrong", { detail: { id } })
+      new CustomEvent(isCorrect ? "Answeright" : "Answerwrong", {
+        detail: { id },
+      })
     );
 
-    // ✅ 關閉題目介面
     onClose();
   };
-
-  
 
   return (
     <div
@@ -220,10 +157,19 @@ export default function Question({ id, onClose }: { id: string; onClose: () => v
     >
       <div style={{ position: "relative", marginBottom: "20px" }}>
         <Image src="/text-box.png" alt="問題框" width={1000} height={200} style={{ objectFit: "contain" }} />
-        <p style={{
-          position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)",
-          fontSize: "33px", fontFamily: "Cubic", color: "white", textAlign: "center", whiteSpace: "nowrap"
-        }}>
+        <p
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            fontSize: "33px",
+            fontFamily: "Cubic",
+            color: "white",
+            textAlign: "center",
+            whiteSpace: "nowrap",
+          }}
+        >
           {selectedQuestion.question}
         </p>
       </div>
@@ -231,11 +177,25 @@ export default function Question({ id, onClose }: { id: string; onClose: () => v
       <div style={{ display: "flex", justifyContent: "center", gap: "20px" }}>
         {optionKeys.map((option, index) => (
           <div key={option} style={{ position: "relative", cursor: "pointer" }} onClick={() => handleAnswer(option)}>
-            <Image src={selectedOption === index ? "/glowing-text-box.png" : "/text-box.png"} alt={`選項 ${option}`} width={600} height={50} />
-            <p style={{
-              position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)",
-              fontSize: "33px", fontFamily: "Cubic", color: "white", textAlign: "center", whiteSpace: "nowrap"
-            }}>
+            <Image
+              src={selectedOption === index ? "/glowing-text-box.png" : "/text-box.png"}
+              alt={`選項 ${option}`}
+              width={600}
+              height={50}
+            />
+            <p
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                fontSize: "33px",
+                fontFamily: "Cubic",
+                color: "white",
+                textAlign: "center",
+                whiteSpace: "nowrap",
+              }}
+            >
               {option}. {selectedQuestion.options[index]}
             </p>
           </div>
