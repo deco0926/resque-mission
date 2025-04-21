@@ -16,7 +16,7 @@ export default function EndingPage({ level }: PropType) {
 
   const returnToStart = useCallback(() => {
     setEnding(false);
-    level.changelevel("DemoLevel1");
+    level.changelevel("DemoLevel8");
   }, [level, setEnding]);
 
   useEffect(() => {
@@ -68,7 +68,7 @@ export default function EndingPage({ level }: PropType) {
         感謝你的幫忙，最後后羿成功救下嫦娥！
       </h2>
       <p style={{ marginTop: 24, fontSize: 24, opacity: 0.8 }}>
-        按下 Enter 鍵或點擊此處回到遊戲第一關
+        按下 Enter 鍵或點擊此處可遊玩挑戰關卡!
       </p>
     </div>
   );

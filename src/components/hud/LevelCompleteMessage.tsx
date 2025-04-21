@@ -25,6 +25,9 @@ export default function LevelCompleteMessage({ level }: PropType) {
       setEnding(true);
       return;
     }
+    if (level.id === "DemoLevel8") {
+      level.changelevel("DemoLevel1");
+    }
 
     const nextLevelId = levelsArray[currentIndex + 1] ?? levelsArray[0];
     setCurrentId(nextLevelId);

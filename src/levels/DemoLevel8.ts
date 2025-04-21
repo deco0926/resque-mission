@@ -34,10 +34,27 @@ const DemoLevel8 = {
     { x: 11, y: 2, type: PLACEMENT_TYPE_LOCK },
     { x: 6, y: 5, type: PLACEMENT_TYPE_KEY },
 
-    { x: 2, y: 4, type: PLACEMENT_TYPE_RABBIT,Talking:"要做一個簡單的高度角量角器，只需要紙板、量角器、繩子和吸管哦！用這些材料就能測量月亮的高度角，超有趣的呢！",point:'紙板、量角器、繩子和吸管'},
-    { x: 5, y: 2, type: PLACEMENT_TYPE_RABBIT,Talking:"當你用高度角量角器時，記得要對準月亮哦！這樣才能測出月亮離地平線的角度，看看它現在在哪裡哦！",point:'對準月亮'},
-    { x: 10, y: 12, type: PLACEMENT_TYPE_RABBIT,Talking:"當高度角量角器上的繩子指向90度時，代表月亮就在你的頭頂正上方哦！這就是「天頂」的位置，超級高的呢！",point:'90度時，代表月亮就在你的頭頂正上方'},
-    { x: 11, y: 1, type: PLACEMENT_TYPE_RABBIT,Talking:"要測量月亮的高度角，最方便的就是用「高度角量角器」啦！只要對準月亮，看看繩子指向幾度，就能知道它離地平線有多高哦！",point:'高度角量角器'},
+    { 
+      x: 2, y: 4, type: PLACEMENT_TYPE_RABBIT,
+      Talking: "月亮的自轉和公轉週期一樣長，這就是為什麼我們永遠只看到月亮的同一面，這種現象叫作潮汐鎖定哦！", 
+      point: "潮汐鎖定" 
+    },
+    { 
+      x: 5, y: 2, type: PLACEMENT_TYPE_RABBIT,
+      Talking: "你知道嗎？雖然每個月都有新月，但不一定都會有日蝕，因為月亮的軌道有一個傾斜角度，不是每次都在同一平面上！", 
+      point: "傾斜角度" 
+    },
+    { 
+      x: 10, y: 12, type: PLACEMENT_TYPE_RABBIT,
+      Talking: "上弦月出現時，太陽、地球和月亮大約形成 90 度的角度，這時你會看到一半亮亮的月亮哦～", 
+      point: "90 度的角度" 
+    },
+    { 
+      x: 11, y: 1, type: PLACEMENT_TYPE_RABBIT,
+      Talking: "在滿月和新月的時候，太陽和月亮的引力方向一致，所以會產生超大的潮汐，這叫作大潮！", 
+      point: "大潮" 
+    },
+    
 
     { x: 3, y: 13, type:PLACEMENT_TYPE_WALL},
     { x: 4, y: 6, type:PLACEMENT_TYPE_WALL},
@@ -210,11 +227,6 @@ const DemoLevel8 = {
     { x: 13, y: 12, type:PLACEMENT_TYPE_ICE},
     { x: 13, y: 13, type:PLACEMENT_TYPE_ICE,corner:"BOTTOM_RIGHT"},
 
-
-
-
-
-    
   ],
 };
 

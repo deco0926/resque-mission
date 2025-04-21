@@ -34,6 +34,7 @@ export class LevelState {
   animatedFrames
   gameLoop: any;
   deathTypesMap: Record<string, number>;
+  latestNpcMessage: string | null = null;
   private totalElapsedTime: number = 0; // 總計時（累積時間）
   private attemptStartTime: number = Date.now(); // 每次開始的時間戳
   private deathCount: number = 0; // 死亡次數
@@ -299,18 +300,37 @@ export class LevelState {
 
   npctalk() {
     this.gameLoop.stop(); // ✅ 停止遊戲循環
-
-    const handleNpcTalkClose = () => {
-        setTimeout(() => {
-          this.gameLoop.start();
-        }, 120);
-        // this.gameLoop.start(); // ✅ 重新啟動遊戲循環
-        document.removeEventListener("NpcTalkClose", handleNpcTalkClose); // 避免事件重複觸發
+    const npcStartTime = Date.now();
+  
+    const handleNpcTalkClose = async () => {
+      const npcEndTime = Date.now();
+      const duration = (npcEndTime - npcStartTime) / 1000;
+  
+      try {
+        await addDoc(collection(db, "npcTalkLogs"), {
+          playerId: getPlayerId(),
+          level: this.id,
+          message: this.latestNpcMessage || "(無內容)",
+          durationSeconds: duration,
+          timestamp: new Date().toISOString(),
+        });
+        console.log(`📝 已紀錄 NPC 對話：「${this.latestNpcMessage}」，時間：${duration} 秒`);
+      } catch (err) {
+        console.error("❌ 上傳 NPC 對話紀錄失敗：", err);
+      }
+  
+      this.latestNpcMessage = null; // ✅ 清除，避免記到舊資料
+  
+      setTimeout(() => {
+        this.gameLoop.start();
+      }, 120);
+  
+      document.removeEventListener("NpcTalkClose", handleNpcTalkClose);
     };
-
-    // ✅ 監聽 `NpcTalkClose` 事件，當對話結束時重新啟動遊戲
+  
     document.addEventListener("NpcTalkClose", handleNpcTalkClose);
   }
+    
   question() {
     this.gameLoop.stop();
     console.log(`發送 Question 事件，當前 id: ${this.id}`);

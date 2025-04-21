@@ -33,15 +33,20 @@ export class RabbitPlacement extends Placement {
     }
     NpcTalk() {
         this.alreadyTalk = true;
+      
         const event = new CustomEvent("NpcTalk1", {
-            detail: { 
-                message: this.Talking, // ✅ 傳遞對話內容
-                point: this.point      // ✅ 傳遞 point 屬性
-            }
+          detail: {
+            message: this.Talking,
+            point: this.point,
+          },
         });
         document.dispatchEvent(event);
-        console.log("NpcTalk1 事件已觸發，對話內容：", this.Talking, "重點：", this.point); // ✅ Debug 訊息
-    }    
+      
+        // ✅ 將對話內容傳遞給 level 儲存（用於後續紀錄）
+        this.level.latestNpcMessage = this.Talking;
+      
+        console.log("NpcTalk1 事件已觸發，對話內容：", this.Talking, "重點：", this.point);
+    }          
     zIndex() {
         return 2;
     }

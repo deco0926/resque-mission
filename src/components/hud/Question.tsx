@@ -56,6 +56,33 @@ export default function Question({ id, onClose }: { id: string; onClose: () => v
       { question: "月亮的盈虧變化多久重複一次？", options: ["每週", "每月", "每年", "每天"], correctAnswer: "B" },
       { question: "月亮每天比前一天晚升起時，為什麼？", options: ["月亮持續在公轉", "地球停止轉動", "月亮在變小", "太陽在移動"], correctAnswer: "A" },
     ],
+    DemoLevel8: [
+      {
+        question: "月亮的自轉與公轉週期幾乎相同，這種現象稱為什麼？",
+        options: ["潮汐鎖定", "日蝕同步", "月球週期性", "軌道共振"],
+        correctAnswer: "A",
+      },
+      {
+        question: "為什麼在一個月內並不是每次新月都會發生日蝕？",
+        options: [
+          "因為月亮太遠了",
+          "因為太陽太亮了",
+          "因為月球軌道有傾角",
+          "因為地球的自轉影響觀測"],
+        correctAnswer: "C",
+      },
+      {
+        question: "當我們在地球上看到的是上弦月，太陽、地球、月亮大約形成什麼角度？",
+        options: ["0 度", "45 度", "90 度", "180 度"],
+        correctAnswer: "C",
+      },
+      {
+        question: "滿月時最有可能發生以下哪種自然現象？",
+        options: ["最小潮差", "日蝕", "最強潮汐", "無月光夜"],
+        correctAnswer: "C",
+      },
+    ],
+    
   };
 
   useEffect(() => {
