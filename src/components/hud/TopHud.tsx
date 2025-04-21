@@ -19,7 +19,7 @@ export default function TopHud({ level }) {
         <InventoryList level={level} />
       </div>
       <div className={styles.topHudRight}>
-        <MapButton level ={level} />
+        {/* <MapButton level ={level} /> */}
         <ResetButton level={level} />
         {/* <LevelButton level={level} /> */}
         {/*<span>Come back to me</span>*/}

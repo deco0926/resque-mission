@@ -1,6 +1,6 @@
 // @ts-nocheck
 "use client";
-import { useEffect, useCallback } from "react";
+import { useEffect, useState, useCallback } from "react";
 import Image from "next/image";
 import { LevelSchema } from "@/helpers/types";
 import { useSetRecoilState } from "recoil";
@@ -12,32 +12,33 @@ type PropType = {
 
 export default function EndingPage({ level }: PropType) {
   const setEnding = useSetRecoilState(endingAtom);
-
-  // 自動開表單並搶回焦點
-  useEffect(() => {
-    const url =
-      "https://docs.google.com/forms/d/e/1FAIpQLSeediRtVQj7hDdJmvMozohPBlbi4UYKTXDq3W5_LJCHP-LFpg/viewform";
-    const newTab = window.open(url, "_blank", "noopener,noreferrer");
-    if (newTab) newTab.blur();
-    window.focus();
-  }, []);
+  const [hasReleasedEnter, setHasReleasedEnter] = useState(false);
 
   const returnToStart = useCallback(() => {
     setEnding(false);
     level.changelevel("DemoLevel1");
   }, [level, setEnding]);
-  // 監聽 Enter 鍵放開（keyup），必須先放開再按才會觸發
+
   useEffect(() => {
-   const handleKeyUp = (e: KeyboardEvent) => {
+    const handleKeyUp = (e: KeyboardEvent) => {
       if (e.key === "Enter") {
+        setHasReleasedEnter(true); // 標記為已經放開
+      }
+    };
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Enter" && hasReleasedEnter) {
         returnToStart();
       }
     };
+
     window.addEventListener("keyup", handleKeyUp);
+    window.addEventListener("keydown", handleKeyDown);
     return () => {
       window.removeEventListener("keyup", handleKeyUp);
+      window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [returnToStart]);
+  }, [returnToStart, hasReleasedEnter]);
 
   return (
     <div
@@ -67,7 +68,7 @@ export default function EndingPage({ level }: PropType) {
         感謝你的幫忙，最後后羿成功救下嫦娥！
       </h2>
       <p style={{ marginTop: 24, fontSize: 24, opacity: 0.8 }}>
-        按下Enter鍵或點擊此處回到遊戲第一關
+        按下 Enter 鍵或點擊此處回到遊戲第一關
       </p>
     </div>
   );
