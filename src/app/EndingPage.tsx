@@ -14,13 +14,13 @@ export default function EndingPage({ level }: PropType) {
   const setEnding = useSetRecoilState(endingAtom);
 
   // 自動開表單並搶回焦點
-  // useEffect(() => {
-  //   const url =
-  //     "https://docs.google.com/forms/d/e/1FAIpQLSeediRtVQj7hDdJmvMozohPBlbi4UYKTXDq3W5_LJCHP-LFpg/viewform";
-  //   const newTab = window.open(url, "_blank", "noopener,noreferrer");
-  //   if (newTab) newTab.blur();
-  //   window.focus();
-  // }, []);
+  useEffect(() => {
+    const url =
+      "https://docs.google.com/forms/d/e/1FAIpQLSeediRtVQj7hDdJmvMozohPBlbi4UYKTXDq3W5_LJCHP-LFpg/viewform";
+    const newTab = window.open(url, "_blank", "noopener,noreferrer");
+    if (newTab) newTab.blur();
+    window.focus();
+  }, []);
 
   const returnToStart = useCallback(() => {
     setEnding(false);
